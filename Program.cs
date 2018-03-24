@@ -7,10 +7,15 @@ using System.Diagnostics;
 namespace tprosetgoto {
 
     class Commands {
-        public static readonly string SET_RESTART = "/set";
-        public static readonly string GOTO_RESTART = "/goto";
-        public static readonly string OBSERVE = "/obs";
-        public static readonly string WARP = "/warp";
+        public const string SET_RESTART = "/set";
+        public const string GOTO_RESTART = "/goto";
+        public const string OBSERVE = "/obs";
+        public const string WARP = "/warp";
+    }
+
+    class Dlls {
+        public const string USER_32 = "user32.dll";
+        public const string KERNEL_32 = "kernel32.dll";
     }
 
     class Program {
@@ -29,28 +34,28 @@ namespace tprosetgoto {
 
         private delegate IntPtr LowLevelKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam);
 
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [DllImport(Dlls.USER_32, CharSet = CharSet.Auto, SetLastError = true)]
         private static extern IntPtr SetWindowsHookEx(int idHook, LowLevelKeyboardProc lpfn, IntPtr hMod, uint dwThreadId);
 
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [DllImport(Dlls.USER_32, CharSet = CharSet.Auto, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool UnhookWindowsHookEx(IntPtr hhk);
 
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [DllImport(Dlls.USER_32, CharSet = CharSet.Auto, SetLastError = true)]
         private static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode,IntPtr wParam, IntPtr lParam);
 
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [DllImport(Dlls.KERNEL_32, CharSet = CharSet.Auto, SetLastError = true)]
         private static extern IntPtr GetModuleHandle(string lpModuleName);
 
         //---------------------------------------------
 
-        [DllImport("user32.dll", SetLastError = true)]
+        [DllImport(Dlls.USER_32, SetLastError = true)]
         static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [DllImport(Dlls.USER_32, CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, uint lParam);
 
-        const string progname = "THUG Pro";
+        const string programName = "THUG Pro";
         const int WM_KEYUP = 0x101;
         const int WM_CHAR = 0x0102;
         const int VK_ENTER = 0x0D;
@@ -91,9 +96,10 @@ namespace tprosetgoto {
         }
 
         static void Main(string[] args) {
-            hwnd = (int)FindWindow(null, progname);
+            hwnd = (int)FindWindow(null, programName);
+
             if (hwnd == 0) {
-                Console.WriteLine("THUGPro is not running");
+                Console.WriteLine(programName + " is not running");
                 return;
             }
 
