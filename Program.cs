@@ -13,6 +13,13 @@ namespace tprosetgoto {
         public const string WARP = "/warp";
     }
 
+    class KeyCodes {
+        public const int F5 = 116;
+        public const int F6 = 117;
+        public const int F7 = 118;
+        public const int F8 = 119;
+    }
+
     class Dlls {
         public const string USER_32 = "user32.dll";
         public const string KERNEL_32 = "kernel32.dll";
@@ -55,8 +62,8 @@ namespace tprosetgoto {
         [DllImport(Dlls.USER_32, CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool PostMessage(IntPtr windowHandle, uint Msg, IntPtr wParam, uint lParam);
 
-        const string programName = "THUG Pro";
-        const int WM_KEYUP = 0x101;
+        const string PROGRAM_NAME = "THUG Pro";
+
         const int WM_CHAR = 0x0102;
         const int VK_ENTER = 0x0D;
 
@@ -79,16 +86,16 @@ namespace tprosetgoto {
         }
 
         private static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam) {
-            if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN) {
-                int vkCode = Marshal.ReadInt32(lParam);
+            if (nCode >= 0 && wParam == (IntPtr) WM_KEYDOWN) {
+                int keycode = Marshal.ReadInt32(lParam);
                 if (windowHandle != 0) {
-                    if (vkCode == 116) //F5
+                    if (keycode == KeyCodes.F5)
                         PostCommand(windowHandle, Commands.SET_RESTART);
-                    else if (vkCode == 117) //F6
+                    else if (keycode == KeyCodes.F6)
                         PostCommand(windowHandle, Commands.GOTO_RESTART);
-                    else if (vkCode == 118) //F7
+                    else if (keycode == KeyCodes.F7)
                         PostCommand(windowHandle, Commands.OBSERVE);
-                    else if (vkCode == 119) //F8
+                    else if (keycode == KeyCodes.F8)
                         PostCommand(windowHandle, Commands.WARP);
                 }
             }
@@ -96,10 +103,10 @@ namespace tprosetgoto {
         }
 
         static void Main(string[] args) {
-            windowHandle = (int) FindWindow(null, programName);
+            windowHandle = (int) FindWindow(null, PROGRAM_NAME);
 
             if (windowHandle == 0) {
-                Console.WriteLine(programName + " is not running");
+                Console.WriteLine(PROGRAM_NAME + " is not running.");
                 return;
             }
 
