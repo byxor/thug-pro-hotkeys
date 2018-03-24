@@ -5,6 +5,14 @@ using System.Threading;
 using System.Diagnostics;
 
 namespace tprosetgoto {
+
+    class Commands {
+        public static readonly string SET_RESTART = "/set";
+        public static readonly string GOTO_RESTART = "/goto";
+        public static readonly string OBSERVE = "/obs";
+        public static readonly string WARP = "/warp";
+    }
+
     class Program {
         static int hwnd = 0;
         private const int WH_KEYBOARD_LL = 13;
@@ -70,13 +78,13 @@ namespace tprosetgoto {
                 int vkCode = Marshal.ReadInt32(lParam);
                 if (hwnd != 0) {
                     if (vkCode == 116) //F5
-                        postCommand(hwnd, "/set");
+                        postCommand(hwnd, Commands.SET_RESTART);
                     else if (vkCode == 117) //F6
-                        postCommand(hwnd, "/goto");
+                        postCommand(hwnd, Commands.GOTO_RESTART);
                     else if (vkCode == 118) //F7
-                        postCommand(hwnd, "/obs");
+                        postCommand(hwnd, Commands.OBSERVE);
                     else if (vkCode == 119) //F8
-                        postCommand(hwnd, "/warp");
+                        postCommand(hwnd, Commands.WARP);
                 }
             }
             return CallNextHookEx(_hookID, nCode, wParam, lParam);
