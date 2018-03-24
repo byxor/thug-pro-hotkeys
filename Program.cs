@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -7,17 +8,24 @@ using System.Diagnostics;
 namespace tprosetgoto {
 
     class Commands {
-        public const string SET_RESTART = "/set";
-        public const string GOTO_RESTART = "/goto";
-        public const string OBSERVE = "/obs";
-        public const string WARP = "/warp";
+        public static readonly string SET_RESTART = Command("set");
+        public static readonly string GOTO_RESTART = Command("goto");
+        public static readonly string OBSERVE = Command("obs");
+        public static readonly string WARP = Command("warp");
+        private static string Command(string name) { return "/" + name; }
     }
 
     class KeyCodes {
-        public const int F5 = 116;
-        public const int F6 = 117;
-        public const int F7 = 118;
-        public const int F8 = 119;
+        private static readonly Dictionary<string, int> map = new Dictionary<string, int> {
+            {"F5", 116},
+            {"F6", 117},
+            {"F7", 118},
+            {"F8", 119},
+        };
+
+        public static int get(string representation) {
+            return map[representation];
+        }
     }
 
     class Dlls {
@@ -89,13 +97,13 @@ namespace tprosetgoto {
             if (nCode >= 0 && wParam == (IntPtr) WM_KEYDOWN) {
                 int keycode = Marshal.ReadInt32(lParam);
                 if (windowHandle != 0) {
-                    if (keycode == KeyCodes.F5)
+                    if (keycode == KeyCodes.get("F5"))
                         PostCommand(windowHandle, Commands.SET_RESTART);
-                    else if (keycode == KeyCodes.F6)
+                    else if (keycode == KeyCodes.get("F6"))
                         PostCommand(windowHandle, Commands.GOTO_RESTART);
-                    else if (keycode == KeyCodes.F7)
+                    else if (keycode == KeyCodes.get("F7"))
                         PostCommand(windowHandle, Commands.OBSERVE);
-                    else if (keycode == KeyCodes.F8)
+                    else if (keycode == KeyCodes.get("F8"))
                         PostCommand(windowHandle, Commands.WARP);
                 }
             }
