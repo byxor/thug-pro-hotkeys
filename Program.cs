@@ -19,7 +19,7 @@ namespace tprosetgoto {
     }
 
     class Program {
-        static int hwnd = 0;
+        static int windowHandle = 0;
         private const int WH_KEYBOARD_LL = 13;
         private const int WM_KEYDOWN = 0x0100;
         private static LowLevelKeyboardProc _proc = HookCallback;
@@ -53,52 +53,52 @@ namespace tprosetgoto {
         static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
         [DllImport(Dlls.USER_32, CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern bool PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, uint lParam);
+        public static extern bool PostMessage(IntPtr windowHandle, uint Msg, IntPtr wParam, uint lParam);
 
         const string programName = "THUG Pro";
         const int WM_KEYUP = 0x101;
         const int WM_CHAR = 0x0102;
         const int VK_ENTER = 0x0D;
 
-        public static void pressEnter(int hwnd) {
-            PostMessage((IntPtr)hwnd, WM_KEYDOWN, (IntPtr)VK_ENTER, 0);
+        public static void PressEnter(int windowHandle) {
+            PostMessage((IntPtr)windowHandle, WM_KEYDOWN, (IntPtr)VK_ENTER, 0);
         }
 
-        public static void pressChar(int hwnd, char c) {
+        public static void PressChar(int windowHandle, char c) {
             Thread.Sleep(10);
-            PostMessage((IntPtr)hwnd, WM_CHAR, new IntPtr((Int32)c), 0);
+            PostMessage((IntPtr)windowHandle, WM_CHAR, new IntPtr((Int32)c), 0);
         }
 
-        public static void postCommand(int hwnd, string msg) {
-            pressEnter(hwnd);
+        public static void PostCommand(int windowHandle, string msg) {
+            PressEnter(windowHandle);
             Thread.Sleep(5);
             foreach (char c in msg)
-                pressChar(hwnd, c);
+                PressChar(windowHandle, c);
             
-            pressEnter(hwnd);
+            PressEnter(windowHandle);
         }
 
         private static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam) {
             if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN) {
                 int vkCode = Marshal.ReadInt32(lParam);
-                if (hwnd != 0) {
+                if (windowHandle != 0) {
                     if (vkCode == 116) //F5
-                        postCommand(hwnd, Commands.SET_RESTART);
+                        PostCommand(windowHandle, Commands.SET_RESTART);
                     else if (vkCode == 117) //F6
-                        postCommand(hwnd, Commands.GOTO_RESTART);
+                        PostCommand(windowHandle, Commands.GOTO_RESTART);
                     else if (vkCode == 118) //F7
-                        postCommand(hwnd, Commands.OBSERVE);
+                        PostCommand(windowHandle, Commands.OBSERVE);
                     else if (vkCode == 119) //F8
-                        postCommand(hwnd, Commands.WARP);
+                        PostCommand(windowHandle, Commands.WARP);
                 }
             }
             return CallNextHookEx(_hookID, nCode, wParam, lParam);
         }
 
         static void Main(string[] args) {
-            hwnd = (int)FindWindow(null, programName);
+            windowHandle = (int) FindWindow(null, programName);
 
-            if (hwnd == 0) {
+            if (windowHandle == 0) {
                 Console.WriteLine(programName + " is not running");
                 return;
             }
