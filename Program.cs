@@ -37,9 +37,9 @@ namespace tprosetgoto {
         public const int WM_KEYDOWN = 0x0100;
     }
 
-    class CommandPoster {
+    class Command {
 
-        public static void PostCommand(int windowHandle, string msg) {
+        public static void Post(int windowHandle, string msg) {
             PressEnter(windowHandle);
             Thread.Sleep(5);
             foreach (char c in msg)
@@ -48,12 +48,12 @@ namespace tprosetgoto {
         }
 
         private static void PressEnter(int windowHandle) {
-            PostMessage((IntPtr)windowHandle, Shared.WM_KEYDOWN, (IntPtr)VK_ENTER, 0);
+            PostMessage((IntPtr) windowHandle, Shared.WM_KEYDOWN, (IntPtr) VK_ENTER, 0);
         }
 
         private static void PressChar(int windowHandle, char c) {
             Thread.Sleep(10);
-            PostMessage((IntPtr)windowHandle, WM_CHAR, new IntPtr((Int32)c), 0);
+            PostMessage((IntPtr) windowHandle, WM_CHAR, new IntPtr((Int32)c), 0);
         }
 
         private const int WM_CHAR = 0x0102;
@@ -101,13 +101,13 @@ namespace tprosetgoto {
                 int keycode = Marshal.ReadInt32(lParam);
                 if (windowHandle != 0) {
                     if (keycode == KeyCodes.get("F5"))
-                        CommandPoster.PostCommand(windowHandle, Commands.SET_RESTART);
+                        Command.Post(windowHandle, Commands.SET_RESTART);
                     else if (keycode == KeyCodes.get("F6"))
-                        CommandPoster.PostCommand(windowHandle, Commands.GOTO_RESTART);
+                        Command.Post(windowHandle, Commands.GOTO_RESTART);
                     else if (keycode == KeyCodes.get("F7"))
-                        CommandPoster.PostCommand(windowHandle, Commands.OBSERVE);
+                        Command.Post(windowHandle, Commands.OBSERVE);
                     else if (keycode == KeyCodes.get("F8"))
-                        CommandPoster.PostCommand(windowHandle, Commands.WARP);
+                        Command.Post(windowHandle, Commands.WARP);
                 }
             }
             return CallNextHookEx(_hookID, nCode, wParam, lParam);
