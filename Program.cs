@@ -33,10 +33,39 @@ namespace tprosetgoto {
         public const string KERNEL_32 = "kernel32.dll";
     }
 
+    class Shared {
+        public const int WM_KEYDOWN = 0x0100;
+    }
+
+    class CommandPoster {
+
+        public static void PostCommand(int windowHandle, string msg) {
+            PressEnter(windowHandle);
+            Thread.Sleep(5);
+            foreach (char c in msg)
+                PressChar(windowHandle, c);
+            PressEnter(windowHandle);
+        }
+
+        private static void PressEnter(int windowHandle) {
+            PostMessage((IntPtr)windowHandle, Shared.WM_KEYDOWN, (IntPtr)VK_ENTER, 0);
+        }
+
+        private static void PressChar(int windowHandle, char c) {
+            Thread.Sleep(10);
+            PostMessage((IntPtr)windowHandle, WM_CHAR, new IntPtr((Int32)c), 0);
+        }
+
+        private const int WM_CHAR = 0x0102;
+        private const int VK_ENTER = 0x0D;
+
+        [DllImport(Dlls.USER_32, CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern bool PostMessage(IntPtr windowHandle, uint message, IntPtr wParam, uint lParam);
+    }
+
     class Program {
         static int windowHandle = 0;
         private const int WH_KEYBOARD_LL = 13;
-        private const int WM_KEYDOWN = 0x0100;
         private static LowLevelKeyboardProc _proc = HookCallback;
         private static IntPtr _hookID = IntPtr.Zero;
 
@@ -62,49 +91,23 @@ namespace tprosetgoto {
         [DllImport(Dlls.KERNEL_32, CharSet = CharSet.Auto, SetLastError = true)]
         private static extern IntPtr GetModuleHandle(string lpModuleName);
 
-        //---------------------------------------------
-
         [DllImport(Dlls.USER_32, SetLastError = true)]
         static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
-        [DllImport(Dlls.USER_32, CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern bool PostMessage(IntPtr windowHandle, uint Msg, IntPtr wParam, uint lParam);
-
         const string PROGRAM_NAME = "THUG Pro";
 
-        const int WM_CHAR = 0x0102;
-        const int VK_ENTER = 0x0D;
-
-        public static void PressEnter(int windowHandle) {
-            PostMessage((IntPtr)windowHandle, WM_KEYDOWN, (IntPtr)VK_ENTER, 0);
-        }
-
-        public static void PressChar(int windowHandle, char c) {
-            Thread.Sleep(10);
-            PostMessage((IntPtr)windowHandle, WM_CHAR, new IntPtr((Int32)c), 0);
-        }
-
-        public static void PostCommand(int windowHandle, string msg) {
-            PressEnter(windowHandle);
-            Thread.Sleep(5);
-            foreach (char c in msg)
-                PressChar(windowHandle, c);
-            
-            PressEnter(windowHandle);
-        }
-
         private static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam) {
-            if (nCode >= 0 && wParam == (IntPtr) WM_KEYDOWN) {
+            if (nCode >= 0 && wParam == (IntPtr) Shared.WM_KEYDOWN) {
                 int keycode = Marshal.ReadInt32(lParam);
                 if (windowHandle != 0) {
                     if (keycode == KeyCodes.get("F5"))
-                        PostCommand(windowHandle, Commands.SET_RESTART);
+                        CommandPoster.PostCommand(windowHandle, Commands.SET_RESTART);
                     else if (keycode == KeyCodes.get("F6"))
-                        PostCommand(windowHandle, Commands.GOTO_RESTART);
+                        CommandPoster.PostCommand(windowHandle, Commands.GOTO_RESTART);
                     else if (keycode == KeyCodes.get("F7"))
-                        PostCommand(windowHandle, Commands.OBSERVE);
+                        CommandPoster.PostCommand(windowHandle, Commands.OBSERVE);
                     else if (keycode == KeyCodes.get("F8"))
-                        PostCommand(windowHandle, Commands.WARP);
+                        CommandPoster.PostCommand(windowHandle, Commands.WARP);
                 }
             }
             return CallNextHookEx(_hookID, nCode, wParam, lParam);
