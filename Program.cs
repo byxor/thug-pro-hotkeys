@@ -38,7 +38,6 @@ namespace tprosetgoto {
     }
 
     class Command {
-
         public static void Post(int windowHandle, string msg) {
             PressEnter(windowHandle);
             Thread.Sleep(5);
@@ -53,14 +52,14 @@ namespace tprosetgoto {
 
         private static void PressChar(int windowHandle, char c) {
             Thread.Sleep(10);
-            PostMessage((IntPtr) windowHandle, WM_CHAR, new IntPtr((Int32)c), 0);
+            PostMessage((IntPtr) windowHandle, WM_CHAR, new IntPtr((Int32) c), 0);
         }
-
-        private const int WM_CHAR = 0x0102;
-        private const int VK_ENTER = 0x0D;
 
         [DllImport(Dlls.USER_32, CharSet = CharSet.Auto, SetLastError = true)]
         private static extern bool PostMessage(IntPtr windowHandle, uint message, IntPtr wParam, uint lParam);
+
+        private const int WM_CHAR = 0x0102;
+        private const int VK_ENTER = 0x0D;
     }
 
     class Program {
