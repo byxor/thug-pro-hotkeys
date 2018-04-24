@@ -1,2 +1,2 @@
 # thug-pro-hotkeys
-Hotkeys for typed commands - created by choko
+Hotkeys for typed commands in THUG Pro - created by choko
