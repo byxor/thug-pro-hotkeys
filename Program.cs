@@ -85,7 +85,7 @@ namespace tprosetgoto {
         private static extern bool UnhookWindowsHookEx(IntPtr hhk);
 
         [DllImport(Dlls.USER_32, CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode,IntPtr wParam, IntPtr lParam);
+        private static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
 
         [DllImport(Dlls.KERNEL_32, CharSet = CharSet.Auto, SetLastError = true)]
         private static extern IntPtr GetModuleHandle(string lpModuleName);
@@ -95,8 +95,8 @@ namespace tprosetgoto {
 
         const string PROGRAM_NAME = "THUG Pro";
 
-        private static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam) {
-            if (nCode >= 0 && wParam == (IntPtr) Shared.WM_KEYDOWN) {
+        private static IntPtr HookCallback(int hookCode, IntPtr wParam, IntPtr lParam) {
+            if (hookCode >= 0 && wParam == (IntPtr) Shared.WM_KEYDOWN) {
                 int keycode = Marshal.ReadInt32(lParam);
                 if (windowHandle != 0) {
                     if (keycode == KeyCodes.get("F5"))
@@ -109,7 +109,7 @@ namespace tprosetgoto {
                         Command.Post(windowHandle, Commands.WARP);
                 }
             }
-            return CallNextHookEx(_hookID, nCode, wParam, lParam);
+            return CallNextHookEx(_hookID, hookCode, wParam, lParam);
         }
 
         static void Main(string[] args) {
