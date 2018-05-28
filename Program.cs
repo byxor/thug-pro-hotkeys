@@ -37,10 +37,14 @@ namespace tprosetgoto {
         public const string KERNEL_32 = "kernel32.dll";
     }
 
+    class Timing {
+        public const int CHATBOX_WAIT_MILLISECONDS = 5;
+    }
+
     class Command {
         public static void Post(int windowHandle, string msg) {
             PressEnter(windowHandle);
-            Thread.Sleep(5);
+            Thread.Sleep(Timing.CHATBOX_WAIT_MILLISECONDS);
             foreach (char c in msg)
                 PressChar(windowHandle, c);
             PressEnter(windowHandle);
@@ -66,7 +70,7 @@ namespace tprosetgoto {
         static int windowHandle = 0;
         private const int WH_KEYBOARD_LL = 13;
         private static LowLevelKeyboardProc _proc = HookCallback;
-        private static IntPtr _hookID = IntPtr.Zero;
+        private static IntPtr _hookId = IntPtr.Zero;
 
         private static IntPtr SetHook(LowLevelKeyboardProc proc) {
             using (Process curProcess = Process.GetCurrentProcess())
@@ -105,7 +109,7 @@ namespace tprosetgoto {
                 ProcessKeyCode(keyCode);
             }
 
-            return CallNextHookEx(_hookID, hookCode, keyCodeType, keyCodePointer);
+            return CallNextHookEx(_hookId, hookCode, keyCodeType, keyCodePointer);
         }
 
         private static void ProcessKeyCode(int keyCode) {
@@ -129,7 +133,7 @@ namespace tprosetgoto {
 
             _hookID = SetHook(_proc);
             Application.Run();
-            UnhookWindowsHookEx(_hookID);
+            UnhookWindowsHookEx(_hookId);
         }
     }
 }
