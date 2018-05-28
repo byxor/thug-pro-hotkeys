@@ -2,7 +2,6 @@ using System.Collections.Generic;
 
 
 namespace ThugPro {
-
     class KeyCodes {
         private static readonly Dictionary<string, int> map = new Dictionary<string, int> {
             {"F5",    116},
@@ -16,5 +15,4 @@ namespace ThugPro {
             return map[representation];
         }
     }
-
 }

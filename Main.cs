@@ -18,7 +18,6 @@ namespace ThugPro {
     class Program {
         static int windowHandle = 0;
         private const int WH_KEYBOARD_LL = 13;
-        private static LowLevelKeyboardProc _proc = HookCallback;
         private static IntPtr _hookId = IntPtr.Zero;
 
         private static IntPtr SetHook(LowLevelKeyboardProc proc) {
@@ -55,21 +54,10 @@ namespace ThugPro {
 
             if (validHook && validWindow && keyPressedDown) {
                 int keyCode = Marshal.ReadInt32(keyCodePointer);
-                ProcessKeyCode(keyCode);
+                Processor.Process(windowHandle, keyCode);
             }
 
             return CallNextHookEx(_hookId, hookCode, keyCodeType, keyCodePointer);
-        }
-
-        private static void ProcessKeyCode(int keyCode) {
-            if (keyCode == KeyCodes.Get("F5"))
-                Command.Post(windowHandle, Commands.SET_RESTART);
-            else if (keyCode == KeyCodes.Get("F6"))
-                Command.Post(windowHandle, Commands.GOTO_RESTART);
-            else if (keyCode == KeyCodes.Get("F7"))
-                Command.Post(windowHandle, Commands.OBSERVE);
-            else if (keyCode == KeyCodes.Get("F8"))
-                Command.Post(windowHandle, Commands.WARP);
         }
 
         static void Main(string[] args) {
@@ -80,7 +68,7 @@ namespace ThugPro {
                 return;
             }
 
-            _hookId = SetHook(_proc);
+            _hookId = SetHook(HookCallback);
             Application.Run();
             UnhookWindowsHookEx(_hookId);
         }
