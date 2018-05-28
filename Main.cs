@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -15,24 +14,9 @@ namespace ThugPro {
         private static string Command(string name) { return "/" + name; }
     }
 
-    class KeyCodes {
-        private static readonly Dictionary<string, int> map = new Dictionary<string, int> {
-            {"F5",    116},
-            {"F6",    117},
-            {"F7",    118},
-            {"F8",    119},
-            {"Enter", 13},
-        };
-
-        public static int Get(string representation) {
-            return map[representation];
-        }
-    }
-
     class KeyCodeTypes {
         public const int WM_KEYDOWN = 0x0100;
         public const int WM_CHAR = 0x0102;
-        
     }
 
     class Dlls {
