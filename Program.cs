@@ -6,7 +6,6 @@ using System.Threading;
 using System.Diagnostics;
 
 namespace tprosetgoto {
-
     class Commands {
         public static readonly string SET_RESTART = Command("set");
         public static readonly string GOTO_RESTART = Command("goto");
@@ -17,10 +16,11 @@ namespace tprosetgoto {
 
     class KeyCodes {
         private static readonly Dictionary<string, int> map = new Dictionary<string, int> {
-            {"F5", 116},
-            {"F6", 117},
-            {"F7", 118},
-            {"F8", 119},
+            {"F5",    116},
+            {"F6",    117},
+            {"F7",    118},
+            {"F8",    119},
+            {"Enter", 13},
         };
 
         public static int get(string representation) {
@@ -30,6 +30,8 @@ namespace tprosetgoto {
 
     class KeyCodeTypes {
         public const int WM_KEYDOWN = 0x0100;
+        public const int WM_CHAR = 0x0102;
+        
     }
 
     class Dlls {
@@ -42,28 +44,25 @@ namespace tprosetgoto {
     }
 
     class Command {
-        public static void Post(int windowHandle, string msg) {
+        public static void Post(int windowHandle, string message) {
             PressEnter(windowHandle);
             Thread.Sleep(Timing.CHATBOX_WAIT_MILLISECONDS);
-            foreach (char c in msg)
+            foreach (char c in message)
                 PressChar(windowHandle, c);
             PressEnter(windowHandle);
         }
 
         private static void PressEnter(int windowHandle) {
-            PostMessage((IntPtr) windowHandle, KeyCodeTypes.WM_KEYDOWN, (IntPtr) VK_ENTER, 0);
+            PostMessage((IntPtr) windowHandle, KeyCodeTypes.WM_KEYDOWN, (IntPtr) KeyCodes.get("Enter"), 0);
         }
 
         private static void PressChar(int windowHandle, char c) {
             Thread.Sleep(10);
-            PostMessage((IntPtr) windowHandle, WM_CHAR, new IntPtr((Int32) c), 0);
+            PostMessage((IntPtr) windowHandle, KeyCodeTypes.WM_CHAR, new IntPtr((Int32) c), 0);
         }
 
         [DllImport(Dlls.USER_32, CharSet = CharSet.Auto, SetLastError = true)]
         private static extern bool PostMessage(IntPtr windowHandle, uint message, IntPtr wParam, uint lParam);
-
-        private const int WM_CHAR = 0x0102;
-        private const int VK_ENTER = 0x0D;
     }
 
     class Program {
