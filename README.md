@@ -13,3 +13,11 @@ F6 - Goto Restart Point.
 F7 - Observe Players.
 F8 - Warp to Player.
 ```
+
+## Compilation (For Developers)
+
+You can compile the program using [Mono](http://www.mono-project.com/docs/getting-started/install/windows/).
+
+```
+mcs -reference:System.Windows.Forms -out:Program.exe Program.cs
+```
