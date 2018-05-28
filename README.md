@@ -27,5 +27,5 @@ If you have bash, run:
 Otherwise, run:
 
 ```
-mcs -reference:System.Windows.Forms -out:thug-pro-hotkeys.exe Program.cs
+mcs -reference:System.Windows.Forms -out:thug-pro-hotkeys.exe Main.cs
 ```
