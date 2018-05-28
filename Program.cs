@@ -130,7 +130,7 @@ namespace tprosetgoto {
                 return;
             }
 
-            _hookID = SetHook(_proc);
+            _hookId = SetHook(_proc);
             Application.Run();
             UnhookWindowsHookEx(_hookId);
         }
