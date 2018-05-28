@@ -5,14 +5,6 @@ using System.Diagnostics;
 
 namespace ThugPro {
 
-    class Commands {
-        public static readonly string SET_RESTART = Command("set");
-        public static readonly string GOTO_RESTART = Command("goto");
-        public static readonly string OBSERVE = Command("obs");
-        public static readonly string WARP = Command("warp");
-        private static string Command(string name) { return "/" + name; }
-    }
-
     class KeyCodeTypes {
         public const int WM_KEYDOWN = 0x0100;
         public const int WM_CHAR = 0x0102;

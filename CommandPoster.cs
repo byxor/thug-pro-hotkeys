@@ -39,5 +39,4 @@ namespace ThugPro {
         public const int CHATBOX_WAIT_MILLISECONDS = 5;
         public const int CHARACTER_WAIT_MILLISECONDS = 10;
     }
-
 }
