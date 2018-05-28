@@ -18,6 +18,14 @@ F8 - Warp to Player.
 
 You can compile the program using [Mono](http://www.mono-project.com/docs/getting-started/install/windows/).
 
+If you have bash, run:
+
+```
+$ ./compile.sh <optionalExecutableName>
+```
+
+Otherwise, run:
+
 ```
 mcs -reference:System.Windows.Forms -out:thug-pro-hotkeys.exe Program.cs
 ```
