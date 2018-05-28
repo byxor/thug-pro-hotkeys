@@ -17,6 +17,9 @@ namespace ThugPro {
     }
 
     class Hooker {
+        public static int windowHandle = 0;
+        public static IntPtr hookId = IntPtr.Zero;
+
         public static void AttachToWindow(string programName) {
             windowHandle = (int) FindWindow(null, programName);
         }
@@ -25,36 +28,22 @@ namespace ThugPro {
             return windowHandle != 0;
         }
 
-        public static int windowHandle = 0;
+        public static void PrepareCallback() {
+            hookId = SetHook(HookCallback);
+        }
 
-        public static IntPtr hookId = IntPtr.Zero;
+        public static void DetachFromWindow() {
+            UnhookWindowsHookEx(hookId);
+        }
 
-        public static IntPtr SetHook(LowLevelKeyboardProc proc) {
+        private static IntPtr SetHook(LowLevelKeyboardProc proc) {
             using (Process curProcess = Process.GetCurrentProcess())
             using (ProcessModule curModule = curProcess.MainModule) {
                 return SetWindowsHookEx(KeyCodeTypes.WH_KEYBOARD_LL, proc, GetModuleHandle(curModule.ModuleName), 0);
             }
         }
 
-        public delegate IntPtr LowLevelKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam);
-
-        [DllImport(Dlls.USER_32, CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern IntPtr SetWindowsHookEx(int idHook, LowLevelKeyboardProc lpfn, IntPtr hMod, uint dwThreadId);
-
-        [DllImport(Dlls.USER_32, CharSet = CharSet.Auto, SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool UnhookWindowsHookEx(IntPtr hhk);
-
-        [DllImport(Dlls.USER_32, CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
-
-        [DllImport(Dlls.KERNEL_32, CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern IntPtr GetModuleHandle(string lpModuleName);
-
-        [DllImport(Dlls.USER_32, SetLastError = true)]
-        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-
-        public static IntPtr HookCallback(int hookCode, IntPtr keyCodeType, IntPtr keyCodePointer) {
+        private static IntPtr HookCallback(int hookCode, IntPtr keyCodeType, IntPtr keyCodePointer) {
             bool validHook = hookCode >= 0;
             bool validWindow = windowHandle != 0;
             bool keyPressedDown = keyCodeType == (IntPtr) KeyCodeTypes.WM_KEYDOWN; 
@@ -67,7 +56,23 @@ namespace ThugPro {
             return CallNextHookEx(hookId, hookCode, keyCodeType, keyCodePointer);
         }
 
+        private delegate IntPtr LowLevelKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam);
 
+        [DllImport(Dlls.USER_32, CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr SetWindowsHookEx(int idHook, LowLevelKeyboardProc lpfn, IntPtr hMod, uint dwThreadId);
+
+        [DllImport(Dlls.USER_32, CharSet = CharSet.Auto, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool UnhookWindowsHookEx(IntPtr hhk);
+
+        [DllImport(Dlls.USER_32, CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
+
+        [DllImport(Dlls.KERNEL_32, CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr GetModuleHandle(string lpModuleName);
+
+        [DllImport(Dlls.USER_32, SetLastError = true)]
+        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
     }
 
     class Program {
@@ -77,9 +82,10 @@ namespace ThugPro {
             Hooker.AttachToWindow(PROGRAM_NAME);
             
             if (Hooker.Attached()) {
-                Hooker.hookId = Hooker.SetHook(Hooker.HookCallback);
+                Hooker.PrepareCallback();
+                Console.WriteLine("Connected to " + PROGRAM_NAME);
                 Application.Run();
-                Hooker.UnhookWindowsHookEx(Hooker.hookId);
+                Hooker.DetachFromWindow();
             } else {
                 Console.WriteLine(PROGRAM_NAME + " is not running.");
             }
