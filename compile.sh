@@ -7,4 +7,4 @@ else
     executable="$1"
 fi
 
-mcs -reference:System.Windows.Forms -out:$executable Main.cs
+mcs -reference:System.Windows.Forms -out:$executable *.cs
