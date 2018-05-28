@@ -21,7 +21,7 @@ You can compile the program using [Mono](http://www.mono-project.com/docs/gettin
 If you have bash, run:
 
 ```
-$ ./compile.sh <optionalExecutableName>
+./compile.sh <optionalExecutableName>
 ```
 
 Otherwise, run:
