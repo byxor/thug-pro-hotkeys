@@ -5,7 +5,8 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Diagnostics;
 
-namespace tprosetgoto {
+namespace ThugPro {
+
     class Commands {
         public static readonly string SET_RESTART = Command("set");
         public static readonly string GOTO_RESTART = Command("goto");
