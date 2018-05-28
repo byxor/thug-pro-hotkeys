@@ -35,4 +35,9 @@ namespace ThugPro {
         private static extern bool PostMessage(IntPtr windowHandle, uint message, IntPtr wParam, uint lParam);
     }
 
+    class Timing {
+        public const int CHATBOX_WAIT_MILLISECONDS = 5;
+        public const int CHARACTER_WAIT_MILLISECONDS = 10;
+    }
+
 }

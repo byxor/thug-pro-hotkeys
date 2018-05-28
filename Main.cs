@@ -23,11 +23,6 @@ namespace ThugPro {
         public const string KERNEL_32 = "kernel32.dll";
     }
 
-    class Timing {
-        public const int CHATBOX_WAIT_MILLISECONDS = 5;
-        public const int CHARACTER_WAIT_MILLISECONDS = 10;
-    }
-
     class Program {
         static int windowHandle = 0;
         private const int WH_KEYBOARD_LL = 13;
