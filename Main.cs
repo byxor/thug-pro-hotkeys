@@ -6,8 +6,9 @@ using System.Diagnostics;
 namespace ThugPro {
 
     class KeyCodeTypes {
-        public const int WM_KEYDOWN = 0x0100;
-        public const int WM_CHAR = 0x0102;
+        public const int WM_KEYDOWN = 0x100;
+        public const int WM_CHAR = 0x102;
+        public const int WH_KEYBOARD_LL = 0xD;
     }
 
     class Dlls {
@@ -17,13 +18,11 @@ namespace ThugPro {
 
     class Program {
         static int windowHandle = 0;
-        private const int WH_KEYBOARD_LL = 13;
         private static IntPtr _hookId = IntPtr.Zero;
-
         private static IntPtr SetHook(LowLevelKeyboardProc proc) {
             using (Process curProcess = Process.GetCurrentProcess())
             using (ProcessModule curModule = curProcess.MainModule) {
-                return SetWindowsHookEx(WH_KEYBOARD_LL, proc, GetModuleHandle(curModule.ModuleName), 0);
+                return SetWindowsHookEx(KeyCodeTypes.WH_KEYBOARD_LL, proc, GetModuleHandle(curModule.ModuleName), 0);
             }
         }
 
