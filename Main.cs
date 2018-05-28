@@ -2,6 +2,8 @@
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using System.Threading;
+
 
 namespace ThugPro {
 
@@ -77,18 +79,23 @@ namespace ThugPro {
 
     class Program {
         const string PROGRAM_NAME = "THUG Pro";
+        const int CONNECT_INTERVAL_MILLISECONDS = 5000;
 
         static void Main(string[] args) {
-            Hooker.AttachToWindow(PROGRAM_NAME);
+            do {
+                Hooker.AttachToWindow(PROGRAM_NAME);
             
-            if (Hooker.Attached()) {
-                Hooker.PrepareCallback();
-                Console.WriteLine("Connected to " + PROGRAM_NAME);
-                Application.Run();
-                Hooker.DetachFromWindow();
-            } else {
-                Console.WriteLine(PROGRAM_NAME + " is not running.");
-            }
+                if (Hooker.Attached()) {
+                    Hooker.PrepareCallback();
+                    Console.WriteLine("Connected to " + PROGRAM_NAME + ".");
+                    Application.Run();
+                    Hooker.DetachFromWindow();
+                } else {
+                    Console.WriteLine(PROGRAM_NAME + " is not running.");
+                }
+
+                Thread.Sleep(CONNECT_INTERVAL_MILLISECONDS);
+            } while(!Hooker.Attached());
         }
     }
 }
