@@ -23,7 +23,7 @@ namespace tprosetgoto {
             {"Enter", 13},
         };
 
-        public static int get(string representation) {
+        public static int Get(string representation) {
             return map[representation];
         }
     }
@@ -53,7 +53,7 @@ namespace tprosetgoto {
         }
 
         private static void PressEnter(int windowHandle) {
-            PostMessage((IntPtr) windowHandle, KeyCodeTypes.WM_KEYDOWN, (IntPtr) KeyCodes.get("Enter"), 0);
+            PostMessage((IntPtr) windowHandle, KeyCodeTypes.WM_KEYDOWN, (IntPtr) KeyCodes.Get("Enter"), 0);
         }
 
         private static void PressChar(int windowHandle, char c) {
@@ -112,13 +112,13 @@ namespace tprosetgoto {
         }
 
         private static void ProcessKeyCode(int keyCode) {
-            if (keyCode == KeyCodes.get("F5"))
+            if (keyCode == KeyCodes.Get("F5"))
                 Command.Post(windowHandle, Commands.SET_RESTART);
-            else if (keyCode == KeyCodes.get("F6"))
+            else if (keyCode == KeyCodes.Get("F6"))
                 Command.Post(windowHandle, Commands.GOTO_RESTART);
-            else if (keyCode == KeyCodes.get("F7"))
+            else if (keyCode == KeyCodes.Get("F7"))
                 Command.Post(windowHandle, Commands.OBSERVE);
-            else if (keyCode == KeyCodes.get("F8"))
+            else if (keyCode == KeyCodes.Get("F8"))
                 Command.Post(windowHandle, Commands.WARP);
         }
 
