@@ -16,37 +16,45 @@ namespace ThugPro {
         public const string KERNEL_32 = "kernel32.dll";
     }
 
-    class Program {
-        static int windowHandle = 0;
-        private static IntPtr _hookId = IntPtr.Zero;
-        private static IntPtr SetHook(LowLevelKeyboardProc proc) {
+    class Hooker {
+        public static void AttachToWindow(string programName) {
+            windowHandle = (int) FindWindow(null, programName);
+        }
+
+        public static bool Attached() {
+            return windowHandle != 0;
+        }
+
+        public static int windowHandle = 0;
+
+        public static IntPtr hookId = IntPtr.Zero;
+
+        public static IntPtr SetHook(LowLevelKeyboardProc proc) {
             using (Process curProcess = Process.GetCurrentProcess())
             using (ProcessModule curModule = curProcess.MainModule) {
                 return SetWindowsHookEx(KeyCodeTypes.WH_KEYBOARD_LL, proc, GetModuleHandle(curModule.ModuleName), 0);
             }
         }
 
-        private delegate IntPtr LowLevelKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam);
+        public delegate IntPtr LowLevelKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam);
 
         [DllImport(Dlls.USER_32, CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern IntPtr SetWindowsHookEx(int idHook, LowLevelKeyboardProc lpfn, IntPtr hMod, uint dwThreadId);
+        public static extern IntPtr SetWindowsHookEx(int idHook, LowLevelKeyboardProc lpfn, IntPtr hMod, uint dwThreadId);
 
         [DllImport(Dlls.USER_32, CharSet = CharSet.Auto, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool UnhookWindowsHookEx(IntPtr hhk);
+        public static extern bool UnhookWindowsHookEx(IntPtr hhk);
 
         [DllImport(Dlls.USER_32, CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
+        public static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
 
         [DllImport(Dlls.KERNEL_32, CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern IntPtr GetModuleHandle(string lpModuleName);
+        public static extern IntPtr GetModuleHandle(string lpModuleName);
 
         [DllImport(Dlls.USER_32, SetLastError = true)]
-        static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
-        const string PROGRAM_NAME = "THUG Pro";
-
-        private static IntPtr HookCallback(int hookCode, IntPtr keyCodeType, IntPtr keyCodePointer) {
+        public static IntPtr HookCallback(int hookCode, IntPtr keyCodeType, IntPtr keyCodePointer) {
             bool validHook = hookCode >= 0;
             bool validWindow = windowHandle != 0;
             bool keyPressedDown = keyCodeType == (IntPtr) KeyCodeTypes.WM_KEYDOWN; 
@@ -56,20 +64,25 @@ namespace ThugPro {
                 Processor.Process(windowHandle, keyCode);
             }
 
-            return CallNextHookEx(_hookId, hookCode, keyCodeType, keyCodePointer);
+            return CallNextHookEx(hookId, hookCode, keyCodeType, keyCodePointer);
         }
 
+
+    }
+
+    class Program {
+        const string PROGRAM_NAME = "THUG Pro";
+
         static void Main(string[] args) {
-            windowHandle = (int) FindWindow(null, PROGRAM_NAME);
-
-            if (windowHandle == 0) {
+            Hooker.AttachToWindow(PROGRAM_NAME);
+            
+            if (Hooker.Attached()) {
+                Hooker.hookId = Hooker.SetHook(Hooker.HookCallback);
+                Application.Run();
+                Hooker.UnhookWindowsHookEx(Hooker.hookId);
+            } else {
                 Console.WriteLine(PROGRAM_NAME + " is not running.");
-                return;
             }
-
-            _hookId = SetHook(HookCallback);
-            Application.Run();
-            UnhookWindowsHookEx(_hookId);
         }
     }
 }
