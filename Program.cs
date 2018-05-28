@@ -28,13 +28,13 @@ namespace tprosetgoto {
         }
     }
 
+    class KeyCodeTypes {
+        public const int WM_KEYDOWN = 0x0100;
+    }
+
     class Dlls {
         public const string USER_32 = "user32.dll";
         public const string KERNEL_32 = "kernel32.dll";
-    }
-
-    class Shared {
-        public const int WM_KEYDOWN = 0x0100;
     }
 
     class Command {
@@ -47,7 +47,7 @@ namespace tprosetgoto {
         }
 
         private static void PressEnter(int windowHandle) {
-            PostMessage((IntPtr) windowHandle, Shared.WM_KEYDOWN, (IntPtr) VK_ENTER, 0);
+            PostMessage((IntPtr) windowHandle, KeyCodeTypes.WM_KEYDOWN, (IntPtr) VK_ENTER, 0);
         }
 
         private static void PressChar(int windowHandle, char c) {
@@ -95,21 +95,28 @@ namespace tprosetgoto {
 
         const string PROGRAM_NAME = "THUG Pro";
 
-        private static IntPtr HookCallback(int hookCode, IntPtr wParam, IntPtr lParam) {
-            if (hookCode >= 0 && wParam == (IntPtr) Shared.WM_KEYDOWN) {
-                int keycode = Marshal.ReadInt32(lParam);
-                if (windowHandle != 0) {
-                    if (keycode == KeyCodes.get("F5"))
-                        Command.Post(windowHandle, Commands.SET_RESTART);
-                    else if (keycode == KeyCodes.get("F6"))
-                        Command.Post(windowHandle, Commands.GOTO_RESTART);
-                    else if (keycode == KeyCodes.get("F7"))
-                        Command.Post(windowHandle, Commands.OBSERVE);
-                    else if (keycode == KeyCodes.get("F8"))
-                        Command.Post(windowHandle, Commands.WARP);
-                }
+        private static IntPtr HookCallback(int hookCode, IntPtr keyCodeType, IntPtr keyCodePointer) {
+            bool validHook = hookCode >= 0;
+            bool validWindow = windowHandle != 0;
+            bool keyPressedDown = keyCodeType == (IntPtr) KeyCodeTypes.WM_KEYDOWN; 
+
+            if (validHook && validWindow && keyPressedDown) {
+                int keyCode = Marshal.ReadInt32(keyCodePointer);
+                ProcessKeyCode(keyCode);
             }
-            return CallNextHookEx(_hookID, hookCode, wParam, lParam);
+
+            return CallNextHookEx(_hookID, hookCode, keyCodeType, keyCodePointer);
+        }
+
+        private static void ProcessKeyCode(int keyCode) {
+            if (keyCode == KeyCodes.get("F5"))
+                Command.Post(windowHandle, Commands.SET_RESTART);
+            else if (keyCode == KeyCodes.get("F6"))
+                Command.Post(windowHandle, Commands.GOTO_RESTART);
+            else if (keyCode == KeyCodes.get("F7"))
+                Command.Post(windowHandle, Commands.OBSERVE);
+            else if (keyCode == KeyCodes.get("F8"))
+                Command.Post(windowHandle, Commands.WARP);
         }
 
         static void Main(string[] args) {
