@@ -2,6 +2,10 @@
 
 Hotkeys for typed commands in THUG Pro - created by choko
 
+## Download
+
+You can download the EXE from the [releases](https://www.github.com/byxor/thug-pro-hotkeys/releases) page.
+
 ## Usage
 
 1. Launch THUG Pro
