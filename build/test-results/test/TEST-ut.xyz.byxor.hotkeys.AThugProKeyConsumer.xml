@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ut.xyz.byxor.hotkeys.AThugProKeyConsumer" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-11-30T00:28:23" hostname="BrandonPC" time="0.35">
+  <properties/>
+  <testcase name="Should execute &quot;set&quot; command when user presses F5" classname="ut.xyz.byxor.hotkeys.AThugProKeyConsumer" time="0.35"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
