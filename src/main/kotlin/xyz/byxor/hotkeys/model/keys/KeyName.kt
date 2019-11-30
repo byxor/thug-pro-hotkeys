@@ -1,4 +1,4 @@
-package xyz.byxor.hotkeys.model
+package xyz.byxor.hotkeys.model.keys
 
 enum class KeyName {
     ENTER,

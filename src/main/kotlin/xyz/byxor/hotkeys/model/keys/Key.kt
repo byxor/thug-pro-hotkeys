@@ -1,4 +1,4 @@
-package xyz.byxor.hotkeys.model
+package xyz.byxor.hotkeys.model.keys
 
 data class Key(
         val name: KeyName,
