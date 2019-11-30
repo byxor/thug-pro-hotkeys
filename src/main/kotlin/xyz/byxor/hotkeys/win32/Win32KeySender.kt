@@ -2,10 +2,10 @@ package xyz.byxor.hotkeys.win32
 
 import com.sun.jna.platform.win32.User32
 import com.sun.jna.platform.win32.WinDef
-import xyz.byxor.hotkeys.model.Key
-import xyz.byxor.hotkeys.model.KeyName
+import xyz.byxor.hotkeys.model.keys.Key
+import xyz.byxor.hotkeys.model.keys.KeyName
 import xyz.byxor.hotkeys.core.KeySender
-import xyz.byxor.hotkeys.model.KeyPressType
+import xyz.byxor.hotkeys.model.keys.KeyPressType
 
 class Win32KeySender(
         windowTitle: String

@@ -1,8 +1,8 @@
 package xyz.byxor.hotkeys.thugpro
 
-import xyz.byxor.hotkeys.model.Key
+import xyz.byxor.hotkeys.model.keys.Key
 import xyz.byxor.hotkeys.core.KeyConsumer
-import xyz.byxor.hotkeys.model.KeyName
+import xyz.byxor.hotkeys.model.keys.KeyName
 
 class ThugProKeyConsumer(
         private val thugProMessageTyper: ThugProMessageTyper

@@ -1,6 +1,6 @@
 package xyz.byxor.hotkeys.core
 
-import xyz.byxor.hotkeys.model.Key
+import xyz.byxor.hotkeys.model.keys.Key
 
 // Sends key-presses to an application
 abstract class KeySender {
