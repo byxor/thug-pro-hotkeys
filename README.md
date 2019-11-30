@@ -6,14 +6,12 @@ Big thanks to choko for writing the original C# application.
 
 ## Download
 
-A prebuilt jar file isn't available for the kotlin version yet.
-
-You can download an old EXE for the C# version from the [releases](https://www.github.com/byxor/thug-pro-hotkeys/releases) page.
+You can download both versions from the [releases](https://www.github.com/byxor/thug-pro-hotkeys/releases) page.
 
 ## Usage
 
 1. Launch THUG Pro
-2. Launch thug-pro-hotkeys (`gradlew run`)
+2. Launch thug-pro-hotkeys
 
 ```
 F5 - Set Restart Point.
@@ -23,8 +21,22 @@ F8 - Warp to Player.
 F9 - Clear the chat.
 ```
 
+## Running the program (For Developers)
+
+```
+gradlew run
+```
+
 ## Running the tests (For Developers)
 
 ```
 gradlew build
 ```
+
+## Building an executable JAR (For Developers)
+
+```
+gradlew build
+```
+
+The executable JAR file will be located in the `build/libs` directory.

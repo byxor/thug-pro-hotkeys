@@ -1,5 +1,8 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 plugins {
     kotlin("jvm") version "1.3.50"
+    id("com.github.johnrengelman.shadow") version "5.1.0"
     application
 }
 
@@ -11,10 +14,6 @@ repositories {
     mavenCentral()
 }
 
-application {
-    mainClassName = "xyz.byxor.hotkeys.MainKt"
-}
-
 dependencies {
     implementation(kotlin("stdlib"))
     implementation("com.1stleg:jnativehook:2.1.0")
@@ -22,4 +21,22 @@ dependencies {
 
     testImplementation("junit", "junit", "4.12")
     testImplementation("com.nhaarman.mockitokotlin2", "mockito-kotlin", "2.2.0")
+}
+
+val mainClass = "xyz.byxor.hotkeys.MainKt"
+
+application {
+    mainClassName = mainClass
+}
+
+tasks.withType<ShadowJar> {
+    baseName = "thug-pro-hotkeys"
+    classifier = ""
+    version = ""
+}
+
+tasks {
+    build {
+        dependsOn(shadowJar)
+    }
 }

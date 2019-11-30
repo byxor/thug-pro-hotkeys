@@ -57,6 +57,5 @@ class Win32Application {
             logBuffer.addMessage(exception.getDescription())
             logBuffer.addMessage("Please open THUG Pro and restart this program")
         }
-
     }
 }
