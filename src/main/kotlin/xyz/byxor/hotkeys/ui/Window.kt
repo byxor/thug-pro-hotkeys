@@ -10,7 +10,7 @@ class Window(
     private val frame: JFrame
 
     init {
-        frame = JFrame("THUG Pro Hotkeys - 2.1")
+        frame = JFrame("THUG Pro Hotkeys - 2.2")
         frame.defaultCloseOperation = EXIT_ON_CLOSE
         frame.setSize(500, 400)
 

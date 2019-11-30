@@ -20,7 +20,7 @@ class LogOutput : ModelListener<LogBuffer> {
     }
 
     override fun onModelChanged(logBuffer: LogBuffer) {
-        textArea.text = logBuffer.getMessages().joinToString("\n")
+        textArea.text = logBuffer.getMessages().reversed().joinToString("\n")
         textArea.caretPosition = textArea.document.length;
     }
 
