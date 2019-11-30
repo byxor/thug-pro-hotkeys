@@ -1,5 +1,6 @@
 package xyz.byxor.hotkeys.win32
 
+import xyz.byxor.hotkeys.core.ApplicationNotFound
 import xyz.byxor.hotkeys.thugpro.ThugProKeyConsumer
 import xyz.byxor.hotkeys.core.KeyConsumer
 import xyz.byxor.hotkeys.core.KeySender
@@ -36,7 +37,7 @@ class Win32Application {
         window.display()
 
         logBuffer.addMessage("""
-            THUG Pro Hotkeys
+            THUG Pro Hotkeys by choko & byxor
             ----------------
             F5 = /set
             F6 = /goto
@@ -49,7 +50,13 @@ class Win32Application {
             
         """.trimIndent())
 
-        keySender.start()
-        keyListener.start()
+        try {
+            keySender.start()
+            keyListener.start()
+        } catch(exception: ApplicationNotFound) {
+            logBuffer.addMessage(exception.getDescription())
+            logBuffer.addMessage("Please open THUG Pro and restart this program")
+        }
+
     }
 }

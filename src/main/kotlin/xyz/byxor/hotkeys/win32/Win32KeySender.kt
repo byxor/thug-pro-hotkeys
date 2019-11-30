@@ -2,11 +2,13 @@ package xyz.byxor.hotkeys.win32
 
 import com.sun.jna.platform.win32.User32
 import com.sun.jna.platform.win32.WinDef
+import xyz.byxor.hotkeys.core.ApplicationNotFound
 import xyz.byxor.hotkeys.model.keys.Key
 import xyz.byxor.hotkeys.model.keys.KeyName
 import xyz.byxor.hotkeys.core.KeySender
 import xyz.byxor.hotkeys.model.LogBuffer
 import xyz.byxor.hotkeys.model.keys.KeyPressType
+import java.lang.IllegalStateException
 
 class Win32KeySender(
         private val windowTitle: String,
@@ -21,8 +23,9 @@ class Win32KeySender(
         try {
             window = User32.INSTANCE.FindWindow(null, title)
         } catch(exception: IllegalStateException) {
-            logBuffer.addMessage("Could not find window, '$windowTitle'")
-            logBuffer.addMessage("Please open THUG Pro and restart this program")
+            throw object: ApplicationNotFound() {
+                override fun getDescription() = "Could not find window, '$windowTitle'"
+            }
         }
     }
 
