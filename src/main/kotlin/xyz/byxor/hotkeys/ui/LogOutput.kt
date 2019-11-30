@@ -20,8 +20,7 @@ class LogOutput : ModelListener<LogBuffer> {
     }
 
     override fun onModelChanged(logBuffer: LogBuffer) {
-        val latestMessage = logBuffer.getMessages()[0]
-        textArea.append("$latestMessage\n")
+        textArea.text = logBuffer.getMessages().joinToString("\n")
         textArea.caretPosition = textArea.document.length;
     }
 
