@@ -2,10 +2,12 @@ package xyz.byxor.hotkeys.thugpro
 
 import xyz.byxor.hotkeys.model.keys.Key
 import xyz.byxor.hotkeys.core.KeyConsumer
+import xyz.byxor.hotkeys.model.LogBuffer
 import xyz.byxor.hotkeys.model.keys.KeyName
 
 class ThugProKeyConsumer(
-        private val thugProMessageTyper: ThugProMessageTyper
+        private val thugProMessageTyper: ThugProMessageTyper,
+        private val logBuffer: LogBuffer
 ) : KeyConsumer {
 
     override fun onKey(key: Key) {
@@ -19,7 +21,7 @@ class ThugProKeyConsumer(
         }
 
         if (message != null) {
-            println("Pressed ${key.name}, typing '${message}'")
+            logBuffer.addMessage("Pressed ${key.name}, typing '${message}'")
             thugProMessageTyper.typeMessage(message)
         }
     }

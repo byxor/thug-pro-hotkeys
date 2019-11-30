@@ -1,12 +1,23 @@
 package xyz.byxor.hotkeys.model
 
+import xyz.byxor.hotkeys.core.ModelListener
+
 class LogBuffer(
-        val capacity: Int = 50
+        private val capacity: Int = 50,
+        private val listener: ModelListener<LogBuffer>? = null
 ) {
 
     private var earliestNode: LogNode? = null
     private var latestNode: LogNode? = null
     private var numberOfNodes: Int = 0
+
+    fun getLatestMessage(): String {
+        if (latestNode != null) {
+            return latestNode!!.message
+        } else {
+            return ""
+        }
+    }
 
     fun getMessages(): List<String> {
         val messages = mutableListOf<String>()
@@ -29,6 +40,14 @@ class LogBuffer(
 
         if (numberOfNodes > capacity) {
             removeEarliestNode()
+        }
+
+        notifyListenerOfChanges()
+    }
+
+    private fun notifyListenerOfChanges() {
+        if (listener != null) {
+            listener.onModelChanged(this)
         }
     }
 

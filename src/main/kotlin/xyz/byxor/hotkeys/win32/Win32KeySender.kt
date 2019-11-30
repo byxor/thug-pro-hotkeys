@@ -5,18 +5,25 @@ import com.sun.jna.platform.win32.WinDef
 import xyz.byxor.hotkeys.model.keys.Key
 import xyz.byxor.hotkeys.model.keys.KeyName
 import xyz.byxor.hotkeys.core.KeySender
+import xyz.byxor.hotkeys.model.LogBuffer
 import xyz.byxor.hotkeys.model.keys.KeyPressType
 
 class Win32KeySender(
-        windowTitle: String
+        private val windowTitle: String,
+        private val logBuffer: LogBuffer
 ) : KeySender() {
 
-    init {
+    override fun start() {
         connectToWindow(windowTitle)
     }
 
     private fun connectToWindow(title: String) {
-        window = User32.INSTANCE.FindWindow(null, title)
+        try {
+            window = User32.INSTANCE.FindWindow(null, title)
+        } catch(exception: IllegalStateException) {
+            logBuffer.addMessage("Could not find window, '$windowTitle'")
+            logBuffer.addMessage("Please open THUG Pro and restart this program")
+        }
     }
 
     override fun send(key: Key) {

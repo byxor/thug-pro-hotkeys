@@ -2,58 +2,89 @@ package ut.xyz.byxor.hotkeys
 
 import org.junit.Test
 import xyz.byxor.hotkeys.model.LogBuffer
-import kotlin.math.log
 
 class ALogBuffer {
 
+    private lateinit var logBuffer: LogBuffer
+
     @Test
     fun `Should store messages`() {
-        val logBuffer = LogBuffer()
+        logBuffer = LogBuffer()
 
         logBuffer.addMessage("first")
         logBuffer.addMessage("second")
         logBuffer.addMessage("third")
 
-        assert(logBuffer.getMessages() == listOf("third", "second", "first"))
+        assertThatTheMessagesAre("third", "second", "first")
     }
 
     @Test
     fun `Should not exceed the specified capacity`() {
-        val logBuffer = LogBuffer(3)
+        logBuffer = LogBuffer(3)
 
         logBuffer.addMessage("first")
         logBuffer.addMessage("second")
         logBuffer.addMessage("third")
         logBuffer.addMessage("fourth")
 
-        assert(logBuffer.getMessages() == listOf("fourth", "third", "second"))
+        assertThatTheMessagesAre("fourth", "third", "second")
+    }
+
+    @Test
+    fun `Should correctly handle a capacity of 0`() {
+        logBuffer = LogBuffer(0)
+
+        logBuffer.addMessage("first")
+
+        assertThatThereAreNoMessages()
     }
 
     @Test
     fun `Should correctly handle a capacity of 1`() {
-        val logBuffer = LogBuffer(1)
+        logBuffer = LogBuffer(1)
 
         logBuffer.addMessage("first")
-        assert(logBuffer.getMessages() == listOf("first"))
+        assertThatTheMessagesAre("first")
 
         logBuffer.addMessage("second")
-        assert(logBuffer.getMessages() == listOf("second"))
+        assertThatTheMessagesAre("second")
 
         logBuffer.addMessage("third")
-        assert(logBuffer.getMessages() == listOf("third"))
+        assertThatTheMessagesAre("third")
     }
 
     @Test
     fun `Should correctly handle a capacity of 2`() {
-        val logBuffer = LogBuffer(2)
+        logBuffer = LogBuffer(2)
 
         logBuffer.addMessage("first")
-        assert(logBuffer.getMessages() == listOf("first"))
+        assertThatTheMessagesAre("first")
 
         logBuffer.addMessage("second")
-        assert(logBuffer.getMessages() == listOf("second", "first"))
+        assertThatTheMessagesAre("second", "first")
 
         logBuffer.addMessage("third")
-        assert(logBuffer.getMessages() == listOf("third", "second"))
+        assertThatTheMessagesAre("third", "second")
+    }
+
+    @Test
+    fun `Should allow the latest message to be fetched`() {
+        logBuffer = LogBuffer()
+
+        assert(logBuffer.getLatestMessage() == "")
+
+        logBuffer.addMessage("first")
+        assert(logBuffer.getLatestMessage() == "first")
+
+        logBuffer.addMessage("second")
+        assert(logBuffer.getLatestMessage() == "second")
+    }
+
+    private fun assertThatTheMessagesAre(vararg messages: String) {
+        assert(logBuffer.getMessages() == messages.toList())
+    }
+
+    private fun assertThatThereAreNoMessages(vararg messages: String) {
+        assert(logBuffer.getMessages() == emptyList<String>())
     }
 }

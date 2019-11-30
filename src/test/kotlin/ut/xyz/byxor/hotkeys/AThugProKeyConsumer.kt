@@ -3,6 +3,7 @@ package ut.xyz.byxor.hotkeys
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Test
+import xyz.byxor.hotkeys.model.LogBuffer
 import xyz.byxor.hotkeys.model.keys.Key
 import xyz.byxor.hotkeys.model.keys.KeyName
 import xyz.byxor.hotkeys.model.keys.KeyPressType
@@ -50,5 +51,5 @@ class AThugProKeyConsumer {
     }
 
     private val thugProMessageTyper = mock<ThugProMessageTyper>()
-    private val thugProKeyConsumer = ThugProKeyConsumer(thugProMessageTyper)
+    private val thugProKeyConsumer = ThugProKeyConsumer(thugProMessageTyper, LogBuffer())
 }
