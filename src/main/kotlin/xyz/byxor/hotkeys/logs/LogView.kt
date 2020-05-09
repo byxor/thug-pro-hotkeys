@@ -2,6 +2,7 @@ package xyz.byxor.hotkeys.logs
 
 import xyz.byxor.hotkeys.lock.util.Subscriber
 import java.awt.Dimension
+import java.awt.Font
 import javax.swing.JScrollPane
 import javax.swing.JTextArea
 import javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS
@@ -16,6 +17,7 @@ class LogView(
     init {
         textArea = JTextArea()
         textArea.isEditable = false
+        textArea.font = Font("monospaced", Font.PLAIN, 12)
         textArea.isVisible = true
 
         scrollPane = JScrollPane(textArea)

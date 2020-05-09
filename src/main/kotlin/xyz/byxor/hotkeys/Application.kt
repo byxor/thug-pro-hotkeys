@@ -7,7 +7,7 @@ import xyz.byxor.hotkeys.core.KeyConsumer
 import xyz.byxor.hotkeys.keyboard.SystemKeySender
 import xyz.byxor.hotkeys.logs.LogBuffer
 import xyz.byxor.hotkeys.logs.LogController
-import xyz.byxor.hotkeys.commands.ThugProMessageTyper
+import xyz.byxor.hotkeys.commands.GameChat
 import xyz.byxor.hotkeys.logs.LogView
 import xyz.byxor.hotkeys.keyboard.win32.Win32KeyListener
 import xyz.byxor.hotkeys.keyboard.win32.Win32KeySender
@@ -28,7 +28,7 @@ class Application {
     private val lockController: LockController
     private val lockView: LockView
 
-    private val thugProMessageTyper: ThugProMessageTyper
+    private val gameChat: GameChat
     private val thugProKeyConsumer: KeyConsumer
     private val commandBroker: CommandBroker
 
@@ -46,7 +46,7 @@ class Application {
         applicationView = ApplicationView(logView, lockView)
 
         keySender = Win32KeySender("THUG Pro")
-        thugProMessageTyper = ThugProMessageTyper(keySender)
+        gameChat = GameChat(keySender)
         commandBroker = CommandBroker()
 
         thugProKeyConsumer = ThugProKeyConsumer(commandBroker, logBuffer, lock)
@@ -58,7 +58,7 @@ class Application {
 
         logBuffer.addMessage("""
             -----------------------------------------------------
-            | THUG Pro Hotkeys from choko & byxor               |
+            | THUG Pro Hotkeys, from choko & byxor              |
             |                                                   |
             | Commands:                                         |
             |  F5 = /set                                        |

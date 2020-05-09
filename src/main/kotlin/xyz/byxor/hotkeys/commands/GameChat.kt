@@ -6,7 +6,7 @@ import xyz.byxor.hotkeys.keyboard.KeyName
 import xyz.byxor.hotkeys.keyboard.KeyPressType
 
 @Deprecated("This class is an untested prototype")
-open class ThugProMessageTyper(
+open class GameChat(
         private val keySender: SystemKeySender
 ) {
     open fun typeMessage(message: String) {
