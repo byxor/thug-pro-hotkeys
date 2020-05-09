@@ -1,4 +1,9 @@
-package xyz.byxor.hotkeys.model.keys
+package xyz.byxor.hotkeys.keys
+
+data class Key(
+        val name: KeyName,
+        val pressType: KeyPressType
+)
 
 enum class KeyName {
     ENTER,
@@ -83,4 +88,8 @@ enum class KeyName {
     UPPERCASE_X,
     UPPERCASE_Y,
     UPPERCASE_Z
+}
+
+enum class KeyPressType {
+    UP, DOWN, TYPED
 }

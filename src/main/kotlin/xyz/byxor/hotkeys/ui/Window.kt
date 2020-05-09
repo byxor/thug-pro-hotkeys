@@ -1,10 +1,11 @@
 package xyz.byxor.hotkeys.ui
 
+import xyz.byxor.hotkeys.logs.LogView
 import javax.swing.JFrame
 import javax.swing.WindowConstants.EXIT_ON_CLOSE
 
 class Window(
-        private val logOutput: LogOutput
+        private val logView: LogView
 ) {
 
     private val frame: JFrame
@@ -14,7 +15,7 @@ class Window(
         frame.defaultCloseOperation = EXIT_ON_CLOSE
         frame.setSize(500, 400)
 
-        frame.add(logOutput.asSwingComponent())
+        frame.add(logView.asSwingComponent())
     }
 
     fun display() {

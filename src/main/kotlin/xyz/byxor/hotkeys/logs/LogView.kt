@@ -1,12 +1,14 @@
-package xyz.byxor.hotkeys.ui
+package xyz.byxor.hotkeys.logs
 
 import xyz.byxor.hotkeys.core.ModelListener
-import xyz.byxor.hotkeys.model.LogBuffer
+import xyz.byxor.hotkeys.lock.util.Subscriber
 import javax.swing.JScrollPane
 import javax.swing.JTextArea
 import javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS
 
-class LogOutput : ModelListener<LogBuffer> {
+class LogView(
+        private val controller: LogController
+) : Subscriber<LogsUpdatedEvent> {
 
     private val scrollPane: JScrollPane
     private val textArea: JTextArea
@@ -17,10 +19,12 @@ class LogOutput : ModelListener<LogBuffer> {
 
         scrollPane = JScrollPane(textArea)
         scrollPane.verticalScrollBarPolicy = VERTICAL_SCROLLBAR_ALWAYS
+
+        controller.subscribeToUpdates(this)
     }
 
-    override fun onModelChanged(logBuffer: LogBuffer) {
-        textArea.text = logBuffer.getMessages().reversed().joinToString("\n")
+    override fun notify(event: LogsUpdatedEvent) {
+        textArea.text = event.messages.reversed().joinToString("\n")
         textArea.caretPosition = textArea.document.length;
     }
 

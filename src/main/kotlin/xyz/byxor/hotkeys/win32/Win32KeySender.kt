@@ -3,11 +3,11 @@ package xyz.byxor.hotkeys.win32
 import com.sun.jna.platform.win32.User32
 import com.sun.jna.platform.win32.WinDef
 import xyz.byxor.hotkeys.core.ApplicationNotFound
-import xyz.byxor.hotkeys.model.keys.Key
-import xyz.byxor.hotkeys.model.keys.KeyName
+import xyz.byxor.hotkeys.keys.Key
 import xyz.byxor.hotkeys.core.KeySender
-import xyz.byxor.hotkeys.model.LogBuffer
-import xyz.byxor.hotkeys.model.keys.KeyPressType
+import xyz.byxor.hotkeys.keys.KeyName
+import xyz.byxor.hotkeys.logs.LogBuffer
+import xyz.byxor.hotkeys.keys.KeyPressType
 import java.lang.IllegalStateException
 
 class Win32KeySender(

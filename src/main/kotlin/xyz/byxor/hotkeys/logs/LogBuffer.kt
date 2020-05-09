@@ -1,12 +1,13 @@
-package xyz.byxor.hotkeys.model
+package xyz.byxor.hotkeys.logs
 
-import xyz.byxor.hotkeys.core.ModelListener
+import xyz.byxor.hotkeys.lock.util.Publisher
+import xyz.byxor.hotkeys.lock.util.Subscriber
 
-class LogBuffer(
-        private val capacity: Int = 50,
-        private val listener: ModelListener<LogBuffer>? = null
-) {
+class LogBuffer(private val capacity: Int = 50) {
 
+    private val publisher = Publisher<LogsUpdatedEvent>()
+
+    // The log messages are stored in a linked list.
     private var earliestNode: LogNode? = null
     private var latestNode: LogNode? = null
     private var numberOfNodes: Int = 0
@@ -42,13 +43,11 @@ class LogBuffer(
             removeEarliestNode()
         }
 
-        notifyListenerOfChanges()
+        notifySubscribersOfUpdates()
     }
 
-    private fun notifyListenerOfChanges() {
-        if (listener != null) {
-            listener.onModelChanged(this)
-        }
+    private fun notifySubscribersOfUpdates() {
+        publisher.publish(LogsUpdatedEvent(getMessages()))
     }
 
     private fun insertFirstNode(message: String) {
@@ -83,6 +82,10 @@ class LogBuffer(
         secondEarliestNode.previous = null
         earliestNode = secondEarliestNode
         numberOfNodes--
+    }
+
+    fun subscribeToUpdates(subscriber: Subscriber<LogsUpdatedEvent>) {
+        publisher.subscribe(subscriber)
     }
 }
 

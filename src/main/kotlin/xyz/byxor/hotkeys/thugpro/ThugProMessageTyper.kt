@@ -1,9 +1,9 @@
 package xyz.byxor.hotkeys.thugpro
 
 import xyz.byxor.hotkeys.core.KeySender
-import xyz.byxor.hotkeys.model.keys.Key
-import xyz.byxor.hotkeys.model.keys.KeyName
-import xyz.byxor.hotkeys.model.keys.KeyPressType
+import xyz.byxor.hotkeys.keys.Key
+import xyz.byxor.hotkeys.keys.KeyName
+import xyz.byxor.hotkeys.keys.KeyPressType
 
 @Deprecated("This class is an untested prototype")
 open class ThugProMessageTyper(

@@ -3,10 +3,10 @@ package ut.xyz.byxor.hotkeys
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Test
-import xyz.byxor.hotkeys.model.LogBuffer
-import xyz.byxor.hotkeys.model.keys.Key
-import xyz.byxor.hotkeys.model.keys.KeyName
-import xyz.byxor.hotkeys.model.keys.KeyPressType
+import xyz.byxor.hotkeys.logs.LogBuffer
+import xyz.byxor.hotkeys.keys.Key
+import xyz.byxor.hotkeys.keys.KeyName
+import xyz.byxor.hotkeys.keys.KeyPressType
 import xyz.byxor.hotkeys.thugpro.ThugProKeyConsumer
 import xyz.byxor.hotkeys.thugpro.ThugProMessageTyper
 

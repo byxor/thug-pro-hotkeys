@@ -4,9 +4,10 @@ import xyz.byxor.hotkeys.core.ApplicationNotFound
 import xyz.byxor.hotkeys.thugpro.ThugProKeyConsumer
 import xyz.byxor.hotkeys.core.KeyConsumer
 import xyz.byxor.hotkeys.core.KeySender
-import xyz.byxor.hotkeys.model.LogBuffer
+import xyz.byxor.hotkeys.logs.LogBuffer
+import xyz.byxor.hotkeys.logs.LogController
 import xyz.byxor.hotkeys.thugpro.ThugProMessageTyper
-import xyz.byxor.hotkeys.ui.LogOutput
+import xyz.byxor.hotkeys.logs.LogView
 import xyz.byxor.hotkeys.ui.Window
 
 class Win32Application {
@@ -15,18 +16,21 @@ class Win32Application {
     private val keySender: KeySender
 
     private val logBuffer: LogBuffer
+    private val logController: LogController
+    private val logView: LogView
 
     private val thugProMessageTyper: ThugProMessageTyper
     private val thugProKeyConsumer: KeyConsumer
 
-    private val logOutput: LogOutput
     private val window: Window
 
     init {
-        logOutput = LogOutput()
-        window = Window(logOutput)
+        logBuffer = LogBuffer()
+        logController = LogController(logBuffer)
+        logView = LogView(logController)
 
-        logBuffer = LogBuffer(100, logOutput)
+        window = Window(logView)
+
         keySender = Win32KeySender("THUG Pro", logBuffer)
         thugProMessageTyper = ThugProMessageTyper(keySender)
         thugProKeyConsumer = ThugProKeyConsumer(thugProMessageTyper, logBuffer)
