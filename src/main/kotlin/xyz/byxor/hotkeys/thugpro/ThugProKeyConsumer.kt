@@ -5,6 +5,7 @@ import xyz.byxor.hotkeys.core.KeyConsumer
 import xyz.byxor.hotkeys.keys.KeyName
 import xyz.byxor.hotkeys.logs.LogBuffer
 
+@Deprecated("Implements a deprecated interface")
 class ThugProKeyConsumer(
         private val thugProMessageTyper: ThugProMessageTyper,
         private val logBuffer: LogBuffer
@@ -19,7 +20,6 @@ class ThugProKeyConsumer(
             KeyName.F9 -> "/clear"
             else -> null
         }
-
         if (message != null) {
             logBuffer.addMessage("Pressed ${key.name}, typing '${message}'")
             thugProMessageTyper.typeMessage(message)
