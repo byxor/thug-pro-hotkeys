@@ -21,6 +21,6 @@ open class CommandBroker(
 
     private fun execute(command: String) {
         gameChat.sendMessage(command)
-        logBuffer.addMessage(command)
+        logBuffer.addMessage("Executed $command")
     }
 }

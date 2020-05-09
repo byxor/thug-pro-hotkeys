@@ -17,13 +17,13 @@ class LogView(
     init {
         textArea = JTextArea()
         textArea.isEditable = false
-        textArea.font = Font("monospaced", Font.PLAIN, 12)
+        textArea.font = Font("monospaced", Font.PLAIN, 16)
         textArea.isVisible = true
 
         scrollPane = JScrollPane(textArea)
         scrollPane.verticalScrollBarPolicy = VERTICAL_SCROLLBAR_ALWAYS
         scrollPane.isVisible = true
-        scrollPane.preferredSize = Dimension(600, 500)
+        scrollPane.preferredSize = Dimension(640, 700)
 
         controller.subscribeToUpdates(this)
     }

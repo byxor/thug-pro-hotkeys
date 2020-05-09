@@ -7,7 +7,8 @@ class LogBuffer(private val capacity: Int = 50) {
 
     private val publisher = Publisher<LogsUpdatedEvent>()
 
-    // The log messages are stored in a linked list.
+    // The log messages are stored in a linked list with a restricted
+    // capacity to prevent the logs from growing indefinitely.
     private var earliestNode: LogNode? = null
     private var latestNode: LogNode? = null
     private var numberOfNodes: Int = 0
