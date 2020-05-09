@@ -1,8 +1,8 @@
-package xyz.byxor.hotkeys.keys.win32
+package xyz.byxor.hotkeys.keyboard.win32
 
 import com.sun.jna.platform.win32.User32
 import com.sun.jna.platform.win32.WinDef
-import xyz.byxor.hotkeys.keys.*
+import xyz.byxor.hotkeys.keyboard.*
 import java.lang.IllegalStateException
 
 class Win32KeySender(

@@ -1,4 +1,4 @@
-package xyz.byxor.hotkeys.keys
+package xyz.byxor.hotkeys.keyboard
 
 // Starts and stops a mechanism that listens for global key-presses on the user's system
 interface SystemKeyListener {

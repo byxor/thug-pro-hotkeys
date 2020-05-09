@@ -1,6 +1,6 @@
 package xyz.byxor.hotkeys.core
 
-import xyz.byxor.hotkeys.keys.Key
+import xyz.byxor.hotkeys.keyboard.Key
 
 // Reacts to a key-press
 @Deprecated("May be replaced with publish/subscribe pattern soon")

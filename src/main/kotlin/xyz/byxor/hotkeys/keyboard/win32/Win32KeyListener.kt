@@ -1,13 +1,13 @@
-package xyz.byxor.hotkeys.keys.win32
+package xyz.byxor.hotkeys.keyboard.win32
 
 import org.jnativehook.GlobalScreen
 import org.jnativehook.keyboard.NativeKeyEvent
 import org.jnativehook.keyboard.NativeKeyListener
 import xyz.byxor.hotkeys.core.KeyConsumer
-import xyz.byxor.hotkeys.keys.Key
-import xyz.byxor.hotkeys.keys.SystemKeyListener
-import xyz.byxor.hotkeys.keys.KeyName
-import xyz.byxor.hotkeys.keys.KeyPressType
+import xyz.byxor.hotkeys.keyboard.Key
+import xyz.byxor.hotkeys.keyboard.SystemKeyListener
+import xyz.byxor.hotkeys.keyboard.KeyName
+import xyz.byxor.hotkeys.keyboard.KeyPressType
 import java.util.logging.Level
 import java.util.logging.LogManager
 import java.util.logging.Logger

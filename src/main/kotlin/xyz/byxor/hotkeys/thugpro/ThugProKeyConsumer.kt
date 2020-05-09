@@ -1,28 +1,30 @@
 package xyz.byxor.hotkeys.thugpro
 
-import xyz.byxor.hotkeys.keys.Key
+import xyz.byxor.hotkeys.commands.CommandBroker
+import xyz.byxor.hotkeys.keyboard.Key
 import xyz.byxor.hotkeys.core.KeyConsumer
-import xyz.byxor.hotkeys.keys.KeyName
+import xyz.byxor.hotkeys.keyboard.KeyName
+import xyz.byxor.hotkeys.lock.Lock
 import xyz.byxor.hotkeys.logs.LogBuffer
 
 @Deprecated("Implements a deprecated interface")
 class ThugProKeyConsumer(
-        private val thugProMessageTyper: ThugProMessageTyper,
-        private val logBuffer: LogBuffer
+        private val commandBroker: CommandBroker,
+        private val logBuffer: LogBuffer,
+        private val lock: Lock
 ) : KeyConsumer {
 
     override fun onKey(key: Key) {
-        val message = when(key.name) {
-            KeyName.F5 -> "/set"
-            KeyName.F6 -> "/goto"
-            KeyName.F7 -> "/obs"
-            KeyName.F8 -> "/warp"
-            KeyName.F9 -> "/clear"
-            else -> null
-        }
-        if (message != null) {
-            logBuffer.addMessage("Pressed ${key.name}, typing '${message}'")
-            thugProMessageTyper.typeMessage(message)
+        when(key.name) {
+            KeyName.F5 -> {
+                if (!lock.isLocked())
+                    commandBroker.setRestart()
+            }
+            KeyName.F6 -> commandBroker.gotoRestart()
+            KeyName.F7 -> commandBroker.observe()
+            KeyName.F8 -> commandBroker.warp()
+            KeyName.F9 -> commandBroker.clear()
+            else -> {}
         }
     }
 }

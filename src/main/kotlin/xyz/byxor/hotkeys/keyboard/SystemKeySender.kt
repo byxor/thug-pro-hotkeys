@@ -1,4 +1,4 @@
-package xyz.byxor.hotkeys.keys
+package xyz.byxor.hotkeys.keyboard
 
 import java.lang.Exception
 
