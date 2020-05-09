@@ -4,6 +4,8 @@ Hotkeys for typed commands in THUG Pro.
 
 Big thanks to choko for writing the original C# application
 
+![Image preview of version 2.3 of the tool being used](./docs/thug_pro_hotkeys_preview_2_3.png)
+
 ## Download
 
 You can download all versions from the [releases](https://www.github.com/byxor/thug-pro-hotkeys/releases) page.

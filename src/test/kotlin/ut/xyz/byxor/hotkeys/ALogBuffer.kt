@@ -84,7 +84,7 @@ class ALogBuffer {
         assert(logBuffer.getMessages() == messages.toList())
     }
 
-    private fun assertThatThereAreNoMessages(vararg messages: String) {
+    private fun assertThatThereAreNoMessages() {
         assert(logBuffer.getMessages() == emptyList<String>())
     }
 }

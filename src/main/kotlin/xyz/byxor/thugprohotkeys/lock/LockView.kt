@@ -44,7 +44,7 @@ class LockSwingComponent(controller: LockController) : JPanel() {
         toggleButton.minimumSize = buttonPreferredSize
         toggleButton.preferredSize = buttonPreferredSize
         toggleButton.isFocusable = false
-        toggleButton.addActionListener { event -> controller.toggleLock() }
+        toggleButton.addActionListener { _ -> controller.toggleLock() }
 
         unlockedBackgroundColor = toggleButton.background
 
