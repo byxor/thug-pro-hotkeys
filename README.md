@@ -2,11 +2,11 @@
 
 Hotkeys for typed commands in THUG Pro.
 
-Big thanks to choko for writing the original C# application.
+Big thanks to choko for writing the original C# application
 
 ## Download
 
-You can download both versions from the [releases](https://www.github.com/byxor/thug-pro-hotkeys/releases) page.
+You can download all versions from the [releases](https://www.github.com/byxor/thug-pro-hotkeys/releases) page.
 
 ## Usage
 
@@ -21,22 +21,22 @@ F8 - Warp to Player.
 F9 - Clear the chat.
 ```
 
-## Running the program (For Developers)
+## Running the program (as a dev)
 
 ```
 gradlew run
 ```
 
-## Running the tests (For Developers)
+## Running the tests (as a dev)
 
 ```
 gradlew build
 ```
 
-## Building an executable JAR (For Developers)
+## Building an executable JAR (as a dev)
 
 ```
 gradlew build
 ```
 
-The executable JAR file will be located in the `build/libs` directory.
+The executable JAR file will be located in the `build/libs` directory: `thug-pro-hotkeys.jar`.

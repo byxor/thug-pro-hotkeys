@@ -3,7 +3,6 @@ package ut.xyz.byxor.hotkeys
 import com.nhaarman.mockitokotlin2.*
 import org.junit.Test
 import xyz.byxor.thugprohotkeys.commands.CommandBroker
-import xyz.byxor.thugprohotkeys.logs.LogBuffer
 import xyz.byxor.thugprohotkeys.keyboard.Key
 import xyz.byxor.thugprohotkeys.keyboard.KeyName
 import xyz.byxor.thugprohotkeys.keyboard.KeyPressType
@@ -50,7 +49,7 @@ class AHotkeyBroker {
     }
 
     private fun whenTheUserPresses(keyName: KeyName) {
-        thugProKeyConsumer.sendKey(Key(keyName, KeyPressType.TYPED))
+        hotkeyBroker.sendKey(Key(keyName, KeyPressType.TYPED))
     }
 
     private fun whenTheSetCommandIsLocked() {
@@ -73,5 +72,5 @@ class AHotkeyBroker {
 
     private val lock = Lock()
     private val commandBroker = mock<CommandBroker>()
-    private val thugProKeyConsumer = HotkeyBroker(commandBroker, LogBuffer(), lock)
+    private val hotkeyBroker = HotkeyBroker(commandBroker, lock)
 }

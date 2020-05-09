@@ -41,12 +41,12 @@ class Application {
         logView = LogView(logController)
 
         lock = Lock()
-        lockController = LockController(lock)
+        lockController = LockController(lock, logBuffer)
         lockView = LockView(lockController)
 
         gameChat = GameChat(keySender)
         commandBroker = CommandBroker(gameChat, logBuffer)
-        hotkeyBroker = HotkeyBroker(commandBroker, logBuffer, lock)
+        hotkeyBroker = HotkeyBroker(commandBroker, lock)
 
         keyListener = Win32KeyListener(hotkeyBroker)
 

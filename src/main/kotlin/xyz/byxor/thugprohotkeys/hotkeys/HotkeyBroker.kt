@@ -9,7 +9,6 @@ import xyz.byxor.thugprohotkeys.logs.LogBuffer
 @Deprecated("Implements a deprecated interface")
 class HotkeyBroker(
         private val commandBroker: CommandBroker,
-        private val logBuffer: LogBuffer,
         private val lock: Lock
 ) {
 
