@@ -3,10 +3,12 @@ package xyz.byxor.thugprohotkeys.keyboard.win32
 import com.sun.jna.platform.win32.User32
 import com.sun.jna.platform.win32.WinDef
 import xyz.byxor.thugprohotkeys.keyboard.*
+import xyz.byxor.thugprohotkeys.logs.LogBuffer
 import java.lang.IllegalStateException
 
 class Win32KeySender(
-        private val windowTitle: String
+        private val windowTitle: String,
+        private val logBuffer: LogBuffer
 ) : SystemKeySender() {
 
     override fun start() {
@@ -16,6 +18,7 @@ class Win32KeySender(
     private fun connectToWindow(title: String) {
         try {
             window = User32.INSTANCE.FindWindow(null, title)
+            logBuffer.addMessage("Connected to THUG Pro")
         } catch(exception: IllegalStateException) {
             throw object: ApplicationNotFound() {
                 override fun getDescription() = "Could not find window, '$windowTitle'"

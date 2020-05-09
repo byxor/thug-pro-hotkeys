@@ -34,8 +34,6 @@ class Application {
     private val applicationView: ApplicationView
 
     init {
-        keySender = Win32KeySender("THUG Pro")
-
         logBuffer = LogBuffer()
         logController = LogController(logBuffer)
         logView = LogView(logController)
@@ -44,6 +42,7 @@ class Application {
         lockController = LockController(lock, logBuffer)
         lockView = LockView(lockController)
 
+        keySender = Win32KeySender("THUG Pro", logBuffer)
         gameChat = GameChat(keySender)
         commandBroker = CommandBroker(gameChat, logBuffer)
         hotkeyBroker = HotkeyBroker(commandBroker, lock)
