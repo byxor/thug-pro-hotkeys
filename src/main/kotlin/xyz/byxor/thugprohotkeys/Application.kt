@@ -1,23 +1,22 @@
-package xyz.byxor.hotkeys
+package xyz.byxor.thugprohotkeys
 
-import xyz.byxor.hotkeys.commands.CommandBroker
-import xyz.byxor.hotkeys.keyboard.ApplicationNotFound
-import xyz.byxor.hotkeys.thugpro.ThugProKeyConsumer
-import xyz.byxor.hotkeys.core.KeyConsumer
-import xyz.byxor.hotkeys.keyboard.SystemKeySender
-import xyz.byxor.hotkeys.logs.LogBuffer
-import xyz.byxor.hotkeys.logs.LogController
-import xyz.byxor.hotkeys.commands.GameChat
-import xyz.byxor.hotkeys.logs.LogView
-import xyz.byxor.hotkeys.keyboard.win32.Win32KeyListener
-import xyz.byxor.hotkeys.keyboard.win32.Win32KeySender
-import xyz.byxor.hotkeys.lock.Lock
-import xyz.byxor.hotkeys.lock.LockController
-import xyz.byxor.hotkeys.lock.LockView
+import xyz.byxor.thugprohotkeys.commands.*
+import xyz.byxor.thugprohotkeys.keyboard.ApplicationNotFound
+import xyz.byxor.thugprohotkeys.hotkeys.HotkeyBroker
+import xyz.byxor.thugprohotkeys.keyboard.SystemKeySender
+import xyz.byxor.thugprohotkeys.logs.LogBuffer
+import xyz.byxor.thugprohotkeys.logs.LogController
+import xyz.byxor.thugprohotkeys.keyboard.SystemKeyListener
+import xyz.byxor.thugprohotkeys.logs.LogView
+import xyz.byxor.thugprohotkeys.keyboard.win32.Win32KeyListener
+import xyz.byxor.thugprohotkeys.keyboard.win32.Win32KeySender
+import xyz.byxor.thugprohotkeys.lock.Lock
+import xyz.byxor.thugprohotkeys.lock.LockController
+import xyz.byxor.thugprohotkeys.lock.LockView
 
 class Application {
 
-    private val keyListener: Win32KeyListener
+    private val keyListener: SystemKeyListener
     private val keySender: SystemKeySender
 
     private val logBuffer: LogBuffer
@@ -28,13 +27,15 @@ class Application {
     private val lockController: LockController
     private val lockView: LockView
 
-    private val gameChat: GameChat
-    private val thugProKeyConsumer: KeyConsumer
+    private val hotkeyBroker: HotkeyBroker
     private val commandBroker: CommandBroker
+    private val gameChat: GameChat
 
     private val applicationView: ApplicationView
 
     init {
+        keySender = Win32KeySender("THUG Pro")
+
         logBuffer = LogBuffer()
         logController = LogController(logBuffer)
         logView = LogView(logController)
@@ -43,14 +44,13 @@ class Application {
         lockController = LockController(lock)
         lockView = LockView(lockController)
 
-        applicationView = ApplicationView(logView, lockView)
-
-        keySender = Win32KeySender("THUG Pro")
         gameChat = GameChat(keySender)
-        commandBroker = CommandBroker()
+        commandBroker = CommandBroker(gameChat, logBuffer)
+        hotkeyBroker = HotkeyBroker(commandBroker, logBuffer, lock)
 
-        thugProKeyConsumer = ThugProKeyConsumer(commandBroker, logBuffer, lock)
-        keyListener = Win32KeyListener(thugProKeyConsumer)
+        keyListener = Win32KeyListener(hotkeyBroker)
+
+        applicationView = ApplicationView(logView, lockView)
     }
 
     fun start() {
@@ -61,11 +61,11 @@ class Application {
             | THUG Pro Hotkeys, from choko & byxor              |
             |                                                   |
             | Commands:                                         |
-            |  F5 = /set                                        |
-            |  F6 = /goto                                       |
-            |  F7 = /obs                                        |
-            |  F8 = /warp                                       |
-            |  F9 = /clear                                      |
+            |  F5 = $SET_RESTART_COMMAND
+            |  F6 = $GOTO_RESTART_COMMAND
+            |  F7 = $OBSERVE_COMMAND
+            |  F8 = $WARP_COMMAND
+            |  F9 = $CLEAR_COMMAND
             |                                                   |
             | Source code:                                      |
             |  https://github.com/byxor/thug-pro-hotkeys        |

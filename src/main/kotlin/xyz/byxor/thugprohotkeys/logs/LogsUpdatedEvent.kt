@@ -1,3 +1,3 @@
-package xyz.byxor.hotkeys.logs
+package xyz.byxor.thugprohotkeys.logs
 
 data class LogsUpdatedEvent(val messages: List<String>)

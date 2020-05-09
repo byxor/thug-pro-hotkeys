@@ -1,6 +1,6 @@
-package xyz.byxor.hotkeys.logs
+package xyz.byxor.thugprohotkeys.logs
 
-import xyz.byxor.hotkeys.lock.util.Subscriber
+import xyz.byxor.thugprohotkeys.lock.util.Subscriber
 import java.awt.Dimension
 import java.awt.Font
 import javax.swing.JScrollPane

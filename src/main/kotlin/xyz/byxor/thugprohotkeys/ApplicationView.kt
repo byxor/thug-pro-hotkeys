@@ -1,9 +1,8 @@
-package xyz.byxor.hotkeys
+package xyz.byxor.thugprohotkeys
 
-import xyz.byxor.hotkeys.lock.LockView
-import xyz.byxor.hotkeys.logs.LogView
+import xyz.byxor.thugprohotkeys.lock.LockView
+import xyz.byxor.thugprohotkeys.logs.LogView
 import java.awt.BorderLayout
-import javax.swing.BoxLayout
 import javax.swing.JFrame
 import javax.swing.UIManager
 import javax.swing.WindowConstants.EXIT_ON_CLOSE

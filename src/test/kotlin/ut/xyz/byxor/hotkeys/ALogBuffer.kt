@@ -1,7 +1,7 @@
 package ut.xyz.byxor.hotkeys
 
 import org.junit.Test
-import xyz.byxor.hotkeys.logs.LogBuffer
+import xyz.byxor.thugprohotkeys.logs.LogBuffer
 
 class ALogBuffer {
 

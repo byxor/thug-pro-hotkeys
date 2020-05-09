@@ -1,18 +1,18 @@
-package xyz.byxor.hotkeys.keyboard.win32
+package xyz.byxor.thugprohotkeys.keyboard.win32
 
 import org.jnativehook.GlobalScreen
 import org.jnativehook.keyboard.NativeKeyEvent
 import org.jnativehook.keyboard.NativeKeyListener
-import xyz.byxor.hotkeys.core.KeyConsumer
-import xyz.byxor.hotkeys.keyboard.Key
-import xyz.byxor.hotkeys.keyboard.SystemKeyListener
-import xyz.byxor.hotkeys.keyboard.KeyName
-import xyz.byxor.hotkeys.keyboard.KeyPressType
+import xyz.byxor.thugprohotkeys.keyboard.Key
+import xyz.byxor.thugprohotkeys.keyboard.SystemKeyListener
+import xyz.byxor.thugprohotkeys.keyboard.KeyName
+import xyz.byxor.thugprohotkeys.keyboard.KeyPressType
+import xyz.byxor.thugprohotkeys.hotkeys.HotkeyBroker
 import java.util.logging.Level
 import java.util.logging.LogManager
 import java.util.logging.Logger
 
-class Win32KeyListener(private val keyConsumer: KeyConsumer) : SystemKeyListener {
+class Win32KeyListener(private val hotkeyBroker: HotkeyBroker) : SystemKeyListener {
 
     override fun start() {
         disableInternalLogger()
@@ -35,7 +35,7 @@ class Win32KeyListener(private val keyConsumer: KeyConsumer) : SystemKeyListener
         GlobalScreen.addNativeKeyListener(object: NativeKeyListener {
             override fun nativeKeyPressed(event: NativeKeyEvent) {
                 val key = event.toKey()
-                keyConsumer.onKey(key)
+                hotkeyBroker.sendKey(key)
             }
 
             override fun nativeKeyTyped(ignored: NativeKeyEvent) {}

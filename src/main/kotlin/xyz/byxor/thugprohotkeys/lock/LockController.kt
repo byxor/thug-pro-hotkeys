@@ -1,7 +1,7 @@
-package xyz.byxor.hotkeys.lock
+package xyz.byxor.thugprohotkeys.lock
 
-import xyz.byxor.hotkeys.lock.util.Publisher
-import xyz.byxor.hotkeys.lock.util.Subscriber
+import xyz.byxor.thugprohotkeys.lock.util.Publisher
+import xyz.byxor.thugprohotkeys.lock.util.Subscriber
 
 
 class LockController(

@@ -1,4 +1,4 @@
-package xyz.byxor.hotkeys.lock.util
+package xyz.byxor.thugprohotkeys.lock.util
 
 interface Subscriber<EventType> {
     fun notify(event: EventType)

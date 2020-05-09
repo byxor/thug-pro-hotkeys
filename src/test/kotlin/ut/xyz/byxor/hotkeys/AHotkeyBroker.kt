@@ -2,15 +2,15 @@ package ut.xyz.byxor.hotkeys
 
 import com.nhaarman.mockitokotlin2.*
 import org.junit.Test
-import xyz.byxor.hotkeys.commands.CommandBroker
-import xyz.byxor.hotkeys.logs.LogBuffer
-import xyz.byxor.hotkeys.keyboard.Key
-import xyz.byxor.hotkeys.keyboard.KeyName
-import xyz.byxor.hotkeys.keyboard.KeyPressType
-import xyz.byxor.hotkeys.lock.Lock
-import xyz.byxor.hotkeys.thugpro.ThugProKeyConsumer
+import xyz.byxor.thugprohotkeys.commands.CommandBroker
+import xyz.byxor.thugprohotkeys.logs.LogBuffer
+import xyz.byxor.thugprohotkeys.keyboard.Key
+import xyz.byxor.thugprohotkeys.keyboard.KeyName
+import xyz.byxor.thugprohotkeys.keyboard.KeyPressType
+import xyz.byxor.thugprohotkeys.lock.Lock
+import xyz.byxor.thugprohotkeys.hotkeys.HotkeyBroker
 
-class ASomething {
+class AHotkeyBroker {
 
     @Test
     fun `Should execute the "set" command when the user presses F5`() {
@@ -73,5 +73,5 @@ class ASomething {
 
     private val lock = Lock()
     private val commandBroker = mock<CommandBroker>()
-    private val thugProKeyConsumer = ThugProKeyConsumer(commandBroker, LogBuffer(), lock)
+    private val thugProKeyConsumer = HotkeyBroker(commandBroker, LogBuffer(), lock)
 }

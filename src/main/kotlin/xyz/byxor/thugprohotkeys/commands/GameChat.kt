@@ -1,15 +1,15 @@
-package xyz.byxor.hotkeys.commands
+package xyz.byxor.thugprohotkeys.commands
 
-import xyz.byxor.hotkeys.keyboard.SystemKeySender
-import xyz.byxor.hotkeys.keyboard.Key
-import xyz.byxor.hotkeys.keyboard.KeyName
-import xyz.byxor.hotkeys.keyboard.KeyPressType
+import xyz.byxor.thugprohotkeys.keyboard.SystemKeySender
+import xyz.byxor.thugprohotkeys.keyboard.Key
+import xyz.byxor.thugprohotkeys.keyboard.KeyName
+import xyz.byxor.thugprohotkeys.keyboard.KeyPressType
 
 @Deprecated("This class is an untested prototype")
 open class GameChat(
         private val keySender: SystemKeySender
 ) {
-    open fun typeMessage(message: String) {
+    open fun sendMessage(message: String) {
         openChatBox()
 
         val keys = message.map { character -> character.toKey() }.toTypedArray()

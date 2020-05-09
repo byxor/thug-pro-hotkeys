@@ -1,7 +1,7 @@
-package xyz.byxor.hotkeys.lock
+package xyz.byxor.thugprohotkeys.lock
 
-import xyz.byxor.hotkeys.lock.util.Publisher
-import xyz.byxor.hotkeys.lock.util.Subscriber
+import xyz.byxor.thugprohotkeys.lock.util.Publisher
+import xyz.byxor.thugprohotkeys.lock.util.Subscriber
 
 
 class Lock(private var isLocked: Boolean = false) {
@@ -9,6 +9,7 @@ class Lock(private var isLocked: Boolean = false) {
     private val publisher = Publisher<LockStateChangedEvent>()
 
     fun isLocked() = isLocked
+    fun isUnlocked() = !isLocked
 
     fun toggle() {
         when (isLocked) {

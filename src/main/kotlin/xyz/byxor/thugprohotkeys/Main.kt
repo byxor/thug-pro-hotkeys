@@ -1,4 +1,4 @@
-package xyz.byxor.hotkeys
+package xyz.byxor.thugprohotkeys
 
 fun main() {
     Application().start()

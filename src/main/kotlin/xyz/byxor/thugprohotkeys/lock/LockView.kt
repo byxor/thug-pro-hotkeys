@@ -1,6 +1,6 @@
-package xyz.byxor.hotkeys.lock
+package xyz.byxor.thugprohotkeys.lock
 
-import xyz.byxor.hotkeys.lock.util.Subscriber
+import xyz.byxor.thugprohotkeys.lock.util.Subscriber
 import java.awt.Dimension
 import javax.swing.*
 
@@ -30,8 +30,8 @@ class LockSwingComponent(controller: LockController) : JPanel() {
     private val buttonTextWhenUnlocked = "Lock"
     private val buttonPreferredSize = Dimension(320, 56)
 
-    private val tooltipTextWhenLocked = "Status: /set is temporarily disabled via lock. Click to unlock."
-    private val tooltipTextWhenUnlocked = "Status: /set is available"
+    private val tooltipTextWhenLocked = "/set is temporarily disabled via the lock. Click to unlock."
+    private val tooltipTextWhenUnlocked = "/set is currently enabled. Click the lock to disable."
 
     private val toggleButton: JButton
 
@@ -39,7 +39,6 @@ class LockSwingComponent(controller: LockController) : JPanel() {
         toggleButton = JButton()
         toggleButton.minimumSize = buttonPreferredSize
         toggleButton.preferredSize = buttonPreferredSize
-//        toggleButton.maximumSize = Dimension(Int.MAX_VALUE, this.minimumSize.height)
         toggleButton.isFocusable = false
         toggleButton.addActionListener { event -> controller.toggleLock() }
         toggleButton.isVisible = true
