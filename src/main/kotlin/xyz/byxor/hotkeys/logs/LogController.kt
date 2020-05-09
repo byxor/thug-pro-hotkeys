@@ -13,11 +13,11 @@ class LogController(
         logBuffer.subscribeToUpdates(this)
     }
 
-    override fun notify(event: LogsUpdatedEvent) {
-        publisher.publish(event)
-    }
-
     fun subscribeToUpdates(subscriber: Subscriber<LogsUpdatedEvent>) {
         publisher.subscribe(subscriber)
+    }
+
+    override fun notify(event: LogsUpdatedEvent) {
+        publisher.publish(event)
     }
 }

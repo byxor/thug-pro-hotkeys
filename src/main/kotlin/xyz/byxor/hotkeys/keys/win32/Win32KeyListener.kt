@@ -1,18 +1,18 @@
-package xyz.byxor.hotkeys.win32
+package xyz.byxor.hotkeys.keys.win32
 
 import org.jnativehook.GlobalScreen
 import org.jnativehook.keyboard.NativeKeyEvent
 import org.jnativehook.keyboard.NativeKeyListener
 import xyz.byxor.hotkeys.core.KeyConsumer
-import xyz.byxor.hotkeys.core.KeyListener
 import xyz.byxor.hotkeys.keys.Key
+import xyz.byxor.hotkeys.keys.SystemKeyListener
 import xyz.byxor.hotkeys.keys.KeyName
 import xyz.byxor.hotkeys.keys.KeyPressType
 import java.util.logging.Level
 import java.util.logging.LogManager
 import java.util.logging.Logger
 
-class Win32KeyListener(private val keyConsumer: KeyConsumer) : KeyListener {
+class Win32KeyListener(private val keyConsumer: KeyConsumer) : SystemKeyListener {
 
     override fun start() {
         disableInternalLogger()

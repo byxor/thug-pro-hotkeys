@@ -1,13 +1,13 @@
 package xyz.byxor.hotkeys.thugpro
 
-import xyz.byxor.hotkeys.core.KeySender
+import xyz.byxor.hotkeys.keys.SystemKeySender
 import xyz.byxor.hotkeys.keys.Key
 import xyz.byxor.hotkeys.keys.KeyName
 import xyz.byxor.hotkeys.keys.KeyPressType
 
 @Deprecated("This class is an untested prototype")
 open class ThugProMessageTyper(
-        private val keySender: KeySender
+        private val keySender: SystemKeySender
 ) {
     open fun typeMessage(message: String) {
         openChatBox()

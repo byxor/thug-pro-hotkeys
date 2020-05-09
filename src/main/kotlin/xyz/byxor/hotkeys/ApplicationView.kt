@@ -1,10 +1,10 @@
-package xyz.byxor.hotkeys.ui
+package xyz.byxor.hotkeys
 
 import xyz.byxor.hotkeys.logs.LogView
 import javax.swing.JFrame
 import javax.swing.WindowConstants.EXIT_ON_CLOSE
 
-class Window(
+class ApplicationView(
         private val logView: LogView
 ) {
 

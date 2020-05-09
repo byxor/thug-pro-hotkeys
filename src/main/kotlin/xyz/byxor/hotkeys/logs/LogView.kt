@@ -1,6 +1,5 @@
 package xyz.byxor.hotkeys.logs
 
-import xyz.byxor.hotkeys.core.ModelListener
 import xyz.byxor.hotkeys.lock.util.Subscriber
 import javax.swing.JScrollPane
 import javax.swing.JTextArea

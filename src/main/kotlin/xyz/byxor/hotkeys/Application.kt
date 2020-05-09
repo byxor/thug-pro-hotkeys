@@ -1,19 +1,20 @@
-package xyz.byxor.hotkeys.win32
+package xyz.byxor.hotkeys
 
-import xyz.byxor.hotkeys.core.ApplicationNotFound
+import xyz.byxor.hotkeys.keys.ApplicationNotFound
 import xyz.byxor.hotkeys.thugpro.ThugProKeyConsumer
 import xyz.byxor.hotkeys.core.KeyConsumer
-import xyz.byxor.hotkeys.core.KeySender
+import xyz.byxor.hotkeys.keys.SystemKeySender
 import xyz.byxor.hotkeys.logs.LogBuffer
 import xyz.byxor.hotkeys.logs.LogController
 import xyz.byxor.hotkeys.thugpro.ThugProMessageTyper
 import xyz.byxor.hotkeys.logs.LogView
-import xyz.byxor.hotkeys.ui.Window
+import xyz.byxor.hotkeys.keys.win32.Win32KeyListener
+import xyz.byxor.hotkeys.keys.win32.Win32KeySender
 
-class Win32Application {
+class Application {
 
     private val keyListener: Win32KeyListener
-    private val keySender: KeySender
+    private val keySender: SystemKeySender
 
     private val logBuffer: LogBuffer
     private val logController: LogController
@@ -22,23 +23,23 @@ class Win32Application {
     private val thugProMessageTyper: ThugProMessageTyper
     private val thugProKeyConsumer: KeyConsumer
 
-    private val window: Window
+    private val applicationView: ApplicationView
 
     init {
         logBuffer = LogBuffer()
         logController = LogController(logBuffer)
         logView = LogView(logController)
 
-        window = Window(logView)
+        applicationView = ApplicationView(logView)
 
-        keySender = Win32KeySender("THUG Pro", logBuffer)
+        keySender = Win32KeySender("THUG Pro")
         thugProMessageTyper = ThugProMessageTyper(keySender)
         thugProKeyConsumer = ThugProKeyConsumer(thugProMessageTyper, logBuffer)
         keyListener = Win32KeyListener(thugProKeyConsumer)
     }
 
     fun start() {
-        window.display()
+        applicationView.display()
 
         logBuffer.addMessage("""
             THUG Pro Hotkeys by choko & byxor
@@ -50,6 +51,8 @@ class Win32Application {
             F9 = /clear
             
             Enjoy!
+            
+            Source code available at: https://www.github.com/byxor/thug-pro-hotkeys
             ----------------
             
         """.trimIndent())

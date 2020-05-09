@@ -1,19 +1,13 @@
-package xyz.byxor.hotkeys.win32
+package xyz.byxor.hotkeys.keys.win32
 
 import com.sun.jna.platform.win32.User32
 import com.sun.jna.platform.win32.WinDef
-import xyz.byxor.hotkeys.core.ApplicationNotFound
-import xyz.byxor.hotkeys.keys.Key
-import xyz.byxor.hotkeys.core.KeySender
-import xyz.byxor.hotkeys.keys.KeyName
-import xyz.byxor.hotkeys.logs.LogBuffer
-import xyz.byxor.hotkeys.keys.KeyPressType
+import xyz.byxor.hotkeys.keys.*
 import java.lang.IllegalStateException
 
 class Win32KeySender(
-        private val windowTitle: String,
-        private val logBuffer: LogBuffer
-) : KeySender() {
+        private val windowTitle: String
+) : SystemKeySender() {
 
     override fun start() {
         connectToWindow(windowTitle)
