@@ -66,10 +66,10 @@ class Application {
             |  F7 = $OBSERVE_COMMAND
             |  F8 = $WARP_COMMAND
             |  F9 = $CLEAR_COMMAND
-            |                                                   |
-            | Source code:                                      |
-            |  https://github.com/byxor/thug-pro-hotkeys        |
-            |                                                   |
+            |                                                   
+            | Source code:                                      
+            |  https://github.com/byxor/thug-pro-hotkeys        
+            |                                                   
             | Tip:                                              |
             |  Use the lock button to avoid accidentally        |
             |  overwriting your restart point.                  |

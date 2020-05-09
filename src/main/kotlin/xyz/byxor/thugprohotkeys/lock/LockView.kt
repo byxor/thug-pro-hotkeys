@@ -30,8 +30,8 @@ class LockSwingComponent(controller: LockController) : JPanel() {
     private val buttonTextWhenUnlocked = "Lock"
     private val buttonPreferredSize = Dimension(320, 56)
 
-    private val tooltipTextWhenLocked = "/set is temporarily disabled via the lock. Click to unlock."
-    private val tooltipTextWhenUnlocked = "/set is currently enabled. Click the lock to disable."
+    private val tooltipTextWhenLocked = "/set is temporarily disabled via the lock. Click the lock to enable the command."
+    private val tooltipTextWhenUnlocked = "/set is temporarily enabled via the lock. Click the lock to disable the command."
 
     private val toggleButton: JButton
 
