@@ -23,7 +23,7 @@ dependencies {
     testImplementation("com.nhaarman.mockitokotlin2", "mockito-kotlin", "2.2.0")
 }
 
-val mainClass = "xyz.byxor.hotkeys.MainKt"
+val mainClass = "xyz.byxor.thugprohotkeys.MainKt"
 
 application {
     mainClassName = mainClass
