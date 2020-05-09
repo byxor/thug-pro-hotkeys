@@ -57,23 +57,24 @@ class Application {
         applicationView.display()
 
         logBuffer.addMessage("""
-            -----------------------------------------------------
-            | THUG Pro Hotkeys, from choko & byxor              |
-            |                                                   |
-            | Commands:                                         |
-            |  F5 = $SET_RESTART_COMMAND
-            |  F6 = $GOTO_RESTART_COMMAND
-            |  F7 = $OBSERVE_COMMAND
-            |  F8 = $WARP_COMMAND
-            |  F9 = $CLEAR_COMMAND
-            |                                                   
-            | Source code:                                      
-            |  https://github.com/byxor/thug-pro-hotkeys        
-            |                                                   
-            | Tip:                                              |
-            |  Use the lock button to avoid accidentally        |
-            |  overwriting your restart point.                  |
-            -----------------------------------------------------
+            -------------------------------------------------------
+             THUG Pro Hotkeys, from choko & byxor
+             
+             Commands:
+              F5 = $SET_RESTART_COMMAND
+              F6 = $GOTO_RESTART_COMMAND
+              F7 = $OBSERVE_COMMAND
+              F8 = $WARP_COMMAND
+              F9 = $CLEAR_COMMAND
+              
+             Source code:
+              https://github.com/byxor/thug-pro-hotkeys
+              
+             Tip:
+              Use the lock button to avoid accidentally
+              overwriting your restart point.
+              
+            -------------------------------------------------------
             
         """.trimIndent())
 

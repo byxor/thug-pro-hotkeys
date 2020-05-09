@@ -12,12 +12,14 @@ class ApplicationView(
         private val lockView: LockView
 ) {
 
+    private val version = "2.3"
+
     private val frame: JFrame
 
     init {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName())
 
-        frame = JFrame("THUG Pro Hotkeys - 2.2")
+        frame = JFrame("THUG Pro Hotkeys - $version")
         frame.contentPane.layout = BorderLayout(8, 8)
         frame.defaultCloseOperation = EXIT_ON_CLOSE
 

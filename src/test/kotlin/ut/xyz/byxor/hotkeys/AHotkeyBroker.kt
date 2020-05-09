@@ -50,7 +50,7 @@ class AHotkeyBroker {
     }
 
     private fun whenTheUserPresses(keyName: KeyName) {
-        thugProKeyConsumer.onKey(Key(keyName, KeyPressType.TYPED))
+        thugProKeyConsumer.sendKey(Key(keyName, KeyPressType.TYPED))
     }
 
     private fun whenTheSetCommandIsLocked() {

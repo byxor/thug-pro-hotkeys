@@ -23,7 +23,7 @@ class LogView(
         scrollPane = JScrollPane(textArea)
         scrollPane.verticalScrollBarPolicy = VERTICAL_SCROLLBAR_ALWAYS
         scrollPane.isVisible = true
-        scrollPane.preferredSize = Dimension(500, 400)
+        scrollPane.preferredSize = Dimension(600, 500)
 
         controller.subscribeToUpdates(this)
     }
