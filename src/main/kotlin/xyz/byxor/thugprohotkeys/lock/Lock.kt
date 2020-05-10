@@ -20,21 +20,19 @@ class Lock(private var isLocked: Boolean = false) {
 
     fun lock() {
         isLocked = true
-        // disable /set command
-        informControllerOfStateChange()
+        informSubscribersOfStateChange()
     }
 
     fun unlock() {
         isLocked = false
-        // enable /set command
-        informControllerOfStateChange()
+        informSubscribersOfStateChange()
     }
 
     fun subscribeToStateChanges(subscriber: Subscriber<LockStateChangedEvent>) {
         publisher.subscribe(subscriber)
     }
 
-    private fun informControllerOfStateChange() {
+    private fun informSubscribersOfStateChange() {
         publisher.publish(LockStateChangedEvent(isLocked))
     }
 }
