@@ -1,4 +1,4 @@
-package ut.xyz.byxor.hotkeys
+package ut.xyz.byxor.thugprohotkeys
 
 import org.junit.Test
 import xyz.byxor.thugprohotkeys.logs.LogBuffer

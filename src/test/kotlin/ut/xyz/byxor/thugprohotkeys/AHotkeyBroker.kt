@@ -1,4 +1,4 @@
-package ut.xyz.byxor.hotkeys
+package ut.xyz.byxor.thugprohotkeys
 
 import com.nhaarman.mockitokotlin2.*
 import org.junit.Test
@@ -61,8 +61,8 @@ class AHotkeyBroker {
             "/set" -> verify(commandBroker).setRestart()
             "/goto" -> verify(commandBroker).gotoRestart()
             "/obs" -> verify(commandBroker).observe()
-            "/warp" -> verify(commandBroker).warp()
-            "/clear" -> verify(commandBroker).clear()
+            "/warp" -> verify(commandBroker).warpToPlayer()
+            "/clear" -> verify(commandBroker).clearChat()
         }
     }
 

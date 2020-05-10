@@ -16,8 +16,8 @@ open class CommandBroker(
     open fun setRestart() = execute(SET_RESTART_COMMAND)
     open fun gotoRestart() = execute(GOTO_RESTART_COMMAND)
     open fun observe() = execute(OBSERVE_COMMAND)
-    open fun warp() = execute(WARP_COMMAND)
-    open fun clear() = execute(CLEAR_COMMAND)
+    open fun warpToPlayer() = execute(WARP_COMMAND)
+    open fun clearChat() = execute(CLEAR_COMMAND)
 
     private fun execute(command: String) {
         gameChat.sendMessage(command)

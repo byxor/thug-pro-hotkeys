@@ -4,7 +4,6 @@ import xyz.byxor.thugprohotkeys.commands.CommandBroker
 import xyz.byxor.thugprohotkeys.keyboard.Key
 import xyz.byxor.thugprohotkeys.keyboard.KeyName
 import xyz.byxor.thugprohotkeys.lock.Lock
-import xyz.byxor.thugprohotkeys.logs.LogBuffer
 
 @Deprecated("Implements a deprecated interface")
 class HotkeyBroker(
@@ -22,8 +21,8 @@ class HotkeyBroker(
             }
             KeyName.F6 -> commandBroker.gotoRestart()
             KeyName.F7 -> commandBroker.observe()
-            KeyName.F8 -> commandBroker.warp()
-            KeyName.F9 -> commandBroker.clear()
+            KeyName.F8 -> commandBroker.warpToPlayer()
+            KeyName.F9 -> commandBroker.clearChat()
             else -> {}
         }
 
